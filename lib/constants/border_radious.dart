@@ -1,0 +1,22 @@
+import 'package:flutter/cupertino.dart';
+
+BorderRadius circle5 =  BorderRadius.circular(5);
+BorderRadius circle10 =  BorderRadius.circular(10);
+BorderRadius circle15 =  BorderRadius.circular(15);
+BorderRadius circle20 =  BorderRadius.circular(20);
+BorderRadius circle25 =  BorderRadius.circular(25);
+BorderRadius circle30 =  BorderRadius.circular(30);
+BorderRadius circle35 =  BorderRadius.circular(35);
+BorderRadius circle40 =  BorderRadius.circular(40);
+BorderRadius circle45 =  BorderRadius.circular(45);
+BorderRadius circle50 =  BorderRadius.circular(50);
+BorderRadius circle55 =  BorderRadius.circular(55);
+BorderRadius circle60 =  BorderRadius.circular(60);
+BorderRadius circle65 =  BorderRadius.circular(65);
+BorderRadius circle70 =  BorderRadius.circular(70);
+BorderRadius circle75 =  BorderRadius.circular(75);
+BorderRadius circle80 =  BorderRadius.circular(80);
+BorderRadius circle85 =  BorderRadius.circular(85);
+BorderRadius circle90 =  BorderRadius.circular(90);
+BorderRadius circle95 =  BorderRadius.circular(95);
+BorderRadius circle100 =  BorderRadius.circular(100);
