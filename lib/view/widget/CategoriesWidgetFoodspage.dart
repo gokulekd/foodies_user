@@ -6,7 +6,7 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/DetailedCategoriesPage.dart';
+import 'package:foodies_user/view/pages/food%20categorty%20module/DetailedCategoriesPage.dart';
 
 // ignore: must_be_immutable
 class CategoriesWidgetFoodspage extends StatelessWidget {

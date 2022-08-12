@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_user/view/pages/DetailedCategoriesPage.dart';
-import 'package:foodies_user/view/pages/screen_foods.dart';
-import 'package:foodies_user/view/pages/screen_login.dart';
-import 'package:foodies_user/view/pages/screen_splash.dart';
+import 'package:foodies_user/view/pages/cart%20module/screen_cart.dart';
+import 'package:foodies_user/view/pages/firebase%20authentication%20module/screen_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:responsive_framework/utils/responsive_utils.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +26,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  ScreenLogin(),
+      home:  const ScreenSplash(),
+      // home: ScreenCart(),
+   
     );
   }
 }

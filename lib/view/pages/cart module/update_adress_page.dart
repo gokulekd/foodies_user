@@ -7,7 +7,6 @@ import 'package:foodies_user/view/widget/login_signup_button.dart';
 
 class UpdateAdressPage extends StatelessWidget {
   const UpdateAdressPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,5 +47,4 @@ class UpdateAdressPage extends StatelessWidget {
       )),
     );
   }
-  
 }

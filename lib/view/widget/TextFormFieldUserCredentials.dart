@@ -41,7 +41,7 @@ class TextFormFieldUserCredentials extends StatelessWidget {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: const BorderSide(
-                    color: textformfieldBorder,
+                    color: textformfieldBorder,  
                     width: 0.5,
                   ),
                 ),

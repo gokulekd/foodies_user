@@ -58,3 +58,10 @@ const String categorisedBurgerVeg = "assets/Categorised view burger/categorised2
 const String googlepay = "assets/payments/google pay.jpg";
 const String paytm = "assets/payments/paytm.png";
 const String cashOnDelivery = "assets/payments/cash.jpg";
+
+//user
+
+const String userFeMale = "assets/user/female user.png";
+const String userMale = "assets/user/user male.png";
+const String uploadNewFood = "assets/foodies/upload food image.jpg";
+

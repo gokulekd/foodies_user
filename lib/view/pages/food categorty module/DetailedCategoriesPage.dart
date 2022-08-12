@@ -3,7 +3,7 @@ import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/screen_cart.dart';
+import 'package:foodies_user/view/pages/cart%20module/screen_cart.dart';
 import 'package:foodies_user/view/widget/CartPage_food_widget.dart';
 
 // ignore: must_be_immutable
@@ -99,7 +99,7 @@ class DetailedCategoriesPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ScreenCart()));
+                                  builder: (context) => const ScreenCart()));
                         },
                         child: const Text("View Cart"),
                       ),

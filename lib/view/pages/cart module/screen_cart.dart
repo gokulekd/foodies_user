@@ -4,8 +4,10 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/CheckOutPage.dart';
-import 'package:foodies_user/view/pages/add_adress_page.dart';
+import 'package:foodies_user/constants/style.dart';
+import 'package:foodies_user/view/pages/cart%20module/CheckOutPage.dart';
+import 'package:foodies_user/view/pages/cart%20module/add_adress_page.dart';
+import 'package:foodies_user/view/pages/cart%20module/update_adress_page.dart';
 import 'package:foodies_user/view/widget/CartPage_food_widget.dart';
 import 'package:foodies_user/view/widget/deliveryAdressViewWidget.dart';
 import 'package:foodies_user/view/widget/order_billing_splitup_widget.dart';
@@ -100,20 +102,20 @@ class ScreenCart extends StatelessWidget {
                             },
                             child: const Text("Select Adress")),
                         ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary:
-                                    const Color.fromARGB(255, 68, 139, 118),
-                                fixedSize: const Size(150, 40),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50))),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const AddAdressPage(),
-                                  ));
-                            },
-                            child: const Text("Add Adress")),
+                          style: ElevatedButton.styleFrom(
+                              primary: const Color.fromARGB(255, 68, 139, 118),
+                              fixedSize: const Size(150, 40),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AddAdressPage(),
+                                ));
+                          },
+                          child: const Text("Add Adress"),
+                        ),
                       ],
                     )
                   ],
@@ -121,13 +123,46 @@ class ScreenCart extends StatelessWidget {
               ),
             ),
             deliveryAdressViewWidget(heightMedia, widthMedia, context),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: kwhite,
+                  border: Border.all(color: loginColor, width: 0.5),
+                  borderRadius: circle20,
+                ),
+                child: ListTile(
+                  title: Text(
+                    "Total amount : 349",
+                    style: googleNormalFont,
+                  ),
+                  subtitle: Text(
+                    "total items : 3",
+                    style: googlefontBlackFont15,
+                  ),
+                  trailing: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: const Color.fromARGB(255, 48, 116, 46),
+                        fixedSize: const Size(150, 40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50))),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CheckOutPage(),
+                          ));
+                    },
+                    child: const Text("Proceed to pay"),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
     );
   }
-
-
 }
 
 void adressSelectorWidget(context) {
@@ -190,14 +225,30 @@ void adressSelectorWidget(context) {
                 leading: Icon(iconHome),
                 title: const Text("Home"),
                 subtitle: const Text("Gokulam House,ennakad po,chengannur"),
-                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                trailing: IconButton(
+                  icon: Icon(iconedit),
+                  onPressed: (() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UpdateAdressPage(),
+                        ),
+                      )),
+                ),
               ),
               sizeH20,
-              const ListTile(
-                leading: Icon(Icons.work_outline_outlined),
-                title: Text("Work"),
-                subtitle: Text("Gokulam House,ennakad po,chengannur"),
-                trailing: Icon(Icons.arrow_forward_ios_rounded),
+              ListTile(
+                leading: const Icon(Icons.work_outline_outlined),
+                title: const Text("Work"),
+                subtitle: const Text("Gokulam House,ennakad po,chengannur"),
+                trailing: IconButton(
+                  icon: Icon(iconedit),
+                  onPressed: (() => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UpdateAdressPage(),
+                        ),
+                      )),
+                ),
               ),
             ],
           ),

@@ -15,7 +15,9 @@ class HomepageCustomAppBar extends StatelessWidget {
   return AppBar(
     backgroundColor: kwhite,
     leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
         icon: Icon(
           iconMenu,
           color: loginColor,

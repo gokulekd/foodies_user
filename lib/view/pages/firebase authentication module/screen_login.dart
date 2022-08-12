@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/screen_signup.dart';
+import 'package:foodies_user/view/pages/firebase%20authentication%20module/screen_signup.dart';
 import 'package:foodies_user/view/widget/TextFormFieldUserCredentials.dart';
 import 'package:foodies_user/view/widget/fireBase_auth_Button.dart';
 import 'package:foodies_user/view/widget/login_signup_button.dart';
@@ -12,7 +11,6 @@ import 'package:foodies_user/view/widget/signup_login_richText.dart';
 
 class ScreenLogin extends StatelessWidget {
   const ScreenLogin({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +42,13 @@ class ScreenLogin extends StatelessWidget {
               LoginSignupButton(
                   buttonColor: loginColor,
                   iconText: "Log in",
-                  onPressedFunction: () {}),
+                  onPressedFunction: () {
+                         Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ScreenSignup()),
+                  );
+                  }),
               sizeH20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,11 +63,7 @@ class ScreenLogin extends StatelessWidget {
                 "Don\'t have an account?",
                 "signup",
                 () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ScreenSignup()),
-                  );
+             
                 },
               ),
             ],

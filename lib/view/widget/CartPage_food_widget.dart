@@ -3,13 +3,10 @@ import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/images.dart';
 
 class CartPageFoodDetails extends StatelessWidget {
-  var height;
-
-  var width;
-
+  double height;
+  double width;
   CartPageFoodDetails({Key? key, required this.height, required this.width})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -50,7 +47,10 @@ class CartPageFoodDetails extends StatelessWidget {
               left: 140,
               child: Text(
                 "₹ 400",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 66, 149, 69)),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 66, 149, 69)),
               ),
             ),
             Positioned(

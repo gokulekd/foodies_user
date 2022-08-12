@@ -3,7 +3,7 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/screen_Homepage.dart';
+import 'package:foodies_user/view/pages/Homepage%20module/screen_Homepage.dart';
 import 'package:foodies_user/view/widget/BottomNavigationBar.dart';
 import 'package:foodies_user/view/widget/TextFormFieldUserCredentials.dart';
 import 'package:foodies_user/view/widget/fireBase_auth_Button.dart';
@@ -12,7 +12,6 @@ import 'package:foodies_user/view/widget/signup_login_richText.dart';
 
 class ScreenSignup extends StatelessWidget {
   const ScreenSignup({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,7 @@ class ScreenSignup extends StatelessWidget {
                   onPressedFunction: () {
                     Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  CustomBottomNavigationBar()),
+                  MaterialPageRoute(builder: (context) =>  const CustomBottomNavigationBar()),
                 );
                   },
                   buttonColor: signupColor,

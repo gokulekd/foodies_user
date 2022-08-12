@@ -37,6 +37,7 @@ dependencies:
   sizer: ^2.0.15
   lottie: ^1.3.0
   responsive_framework: ^0.2.0
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - assets/burger popular/
     - assets/Categorised view burger/
     - assets/payments/
+    - assets/user/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

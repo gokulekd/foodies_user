@@ -31,8 +31,8 @@ const sizeH280 =  SizedBox(height:280 );
 const sizeH290 =  SizedBox(height:290 );
 const sizeH300 =  SizedBox(height:300 );
 
-
-
+const sizeW1 =  SizedBox(width:1 );
+const sizeW5 =  SizedBox(width:5 );
 const sizeW10 =  SizedBox(width:10 );
 const sizeW20 =  SizedBox(width:20 );
 const sizeW30 =  SizedBox(width:30 );
