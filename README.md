@@ -1,16 +1,37 @@
-# foodies_user
 
-A new Flutter project.
+# foodies Burger  user app
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+foodies Burger user app is used for ordering foods from the restaurent 
+using  this application user can order order burger and see all the category ,burger and its price,
+this app is authenticated with firebase and google 
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- google sign in
+- location status
+- category view of foods
+- cart page
+- order status
+- order history
+- add address
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## packages used
+- firebase
+- google sign in
+- map
+- google fonts
+- lottie files
+## Screenshots
+
+
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.41%20PM%20(1).jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.41%20PM.jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.40%20PM%20(2).jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.40%20PM.jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.40%20PM%20(1).jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.39%20PM.jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.39%20PM%20(2).jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.39%20PM%20(1).jpeg?raw=true)
+![App Screenshot](https://github.com/gokulekd/foodies_user/blob/master/foodies%20user%20screenshots/WhatsApp%20Image%202022-08-13%20at%207.38.38%20PM.jpeg?raw=true)
