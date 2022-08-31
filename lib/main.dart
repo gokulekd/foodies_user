@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_user/view/pages/cart%20module/screen_cart.dart';
 import 'package:foodies_user/view/pages/firebase%20authentication%20module/screen_splash.dart';
+import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       builder: (context, Widget) => ResponsiveWrapper.builder(
           ClampingScrollWrapper.builder(context, Widget!),
           breakpoints: const [
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:  const ScreenSplash(),
-      // home: ScreenCart(),
+ 
    
     );
   }
