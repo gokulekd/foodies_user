@@ -6,7 +6,13 @@ import 'package:foodies_user/view/widget/TextFormFieldUserCredentials.dart';
 import 'package:foodies_user/view/widget/login_signup_button.dart';
 
 class UpdateAdressPage extends StatelessWidget {
-  const UpdateAdressPage({Key? key}) : super(key: key);
+   UpdateAdressPage({Key? key}) : super(key: key);
+   TextEditingController nameController = TextEditingController();
+   TextEditingController mobileController = TextEditingController();
+    TextEditingController houseNameController = TextEditingController();
+     TextEditingController roadNameController = TextEditingController();
+          TextEditingController landmarkController = TextEditingController();
+               TextEditingController discriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,19 +29,29 @@ class UpdateAdressPage extends StatelessWidget {
         children: [
           sizeH10,
           TextFormFieldUserCredentials(
+            controller: nameController,
+            obscure: false,
               fieldTitle: "Name", prefixIconName: iconuser),
           sizeH10,
           TextFormFieldUserCredentials(
+            controller: mobileController,
+            obscure: false,
               fieldTitle: "Mobile", prefixIconName: iconMobile),
           sizeH10,
           TextFormFieldUserCredentials(
+            controller: houseNameController,
+            obscure: false,
               fieldTitle: "House/flat/Block No", prefixIconName: Icons.home),
           sizeH10,
           TextFormFieldUserCredentials(
+            controller:roadNameController ,
+            obscure: false,
               fieldTitle: "Appartment/Road/Area No",
               prefixIconName: Icons.apartment),
           sizeH10,
           TextFormFieldUserCredentials(
+            controller: landmarkController,
+            obscure: false,
               fieldTitle: "Nearby Landmark(Optional)",
               prefixIconName: Icons.location_on_sharp),
           sizeH100,

@@ -39,6 +39,11 @@ dependencies:
   responsive_framework: ^0.2.0
   google_fonts: ^3.0.1
   get: ^4.6.5
+  sign_button: ^2.0.2
+  firebase_core: ^1.22.0
+  firebase_auth: ^3.8.0
+  google_sign_in: ^5.4.1
+  cloud_firestore: ^3.4.7
 
 dev_dependencies:
   flutter_test:

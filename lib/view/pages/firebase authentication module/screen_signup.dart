@@ -3,15 +3,19 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/Homepage%20module/screen_Homepage.dart';
-import 'package:foodies_user/view/widget/BottomNavigationBar.dart';
+
 import 'package:foodies_user/view/widget/TextFormFieldUserCredentials.dart';
 import 'package:foodies_user/view/widget/fireBase_auth_Button.dart';
 import 'package:foodies_user/view/widget/login_signup_button.dart';
 import 'package:foodies_user/view/widget/signup_login_richText.dart';
 
 class ScreenSignup extends StatelessWidget {
-  const ScreenSignup({Key? key}) : super(key: key);
+   ScreenSignup({Key? key}) : super(key: key);
+  TextEditingController nameController = TextEditingController();
+   TextEditingController mobileController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+     TextEditingController passwordController = TextEditingController();
+      TextEditingController confrimPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,34 +32,41 @@ class ScreenSignup extends StatelessWidget {
                 ),
               ),
               TextFormFieldUserCredentials(
+                controller: nameController,
+                obscure: false,
                   fieldTitle: "Name", prefixIconName: iconuser),
               TextFormFieldUserCredentials(
+                controller: mobileController,
+                obscure: false,
                   fieldTitle: "Mobile", prefixIconName: iconMobile),
               TextFormFieldUserCredentials(
+                controller: emailController,
+                obscure: false,
                   fieldTitle: "Email", prefixIconName: iconMail),
               TextFormFieldUserCredentials(
+                controller: passwordController,
+                obscure: true,
                   fieldTitle: "Enter Password",
                   prefixIconName: iconpassword,
                   sufixiconName: iconpasswordvisiblity),
               TextFormFieldUserCredentials(
+                controller: confrimPasswordController,
+                obscure: true,
                   fieldTitle: "confirm Password",
                   prefixIconName: iconpassword,
                   sufixiconName: iconpasswordvisiblity),
               sizeH20,
               LoginSignupButton(
                   onPressedFunction: () {
-                    Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  const CustomBottomNavigationBar()),
-                );
+                  
+                  
                   },
                   buttonColor: signupColor,
-                  iconText: "Sign Up"),
+                  iconText: "Sign up"),
               sizeH30,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  firebaseAuthButton(facebookLogo, () {}),
                   firebaseAuthButton(googleLogo, () {}),
                 ],
               ),

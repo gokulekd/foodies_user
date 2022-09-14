@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>823254850939-gt1o7jc3n2idk6fgs6d36g2dubftid6h.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.823254850939-gt1o7jc3n2idk6fgs6d36g2dubftid6h</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>823254850939-38seknc0mic9voau35m7jhcs7c9uv1of.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCpOYK32n8xLoT3glr6ZktSIV47IDQvrag</string>
+	<key>GCM_SENDER_ID</key>
+	<string>823254850939</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.foodiesUser</string>
+	<key>PROJECT_ID</key>
+	<string>foodies-907e0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>foodies-907e0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:823254850939:ios:8850c4ed3e883eaf85b1de</string>
+</dict>
+</plist>

@@ -3,14 +3,19 @@ import 'package:foodies_user/constants/colors.dart';
 
 // ignore: must_be_immutable
 class TextFormFieldUserCredentials extends StatelessWidget {
+  TextEditingController controller;
   String fieldTitle;
   IconData prefixIconName;
+  bool obscure;
   IconData? sufixiconName;
+  
   TextFormFieldUserCredentials({
     Key? key,
     required this.fieldTitle,
     required this.prefixIconName,
     this.sufixiconName,
+    required this.controller,
+    required this.obscure
   }) : super(key: key);
 
   @override
@@ -21,6 +26,8 @@ class TextFormFieldUserCredentials extends StatelessWidget {
         height: 45,
         width: 350,
         child: TextFormField(
+          controller: controller,
+          obscureText: obscure,
             decoration: InputDecoration(
                 prefixIcon: Icon(
                   prefixIconName,

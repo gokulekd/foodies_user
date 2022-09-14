@@ -22,7 +22,7 @@ class ScreenSplash extends StatelessWidget {
             ),
             Center(
               child: SizedBox(
-                  // color: Colors.black,
+                  
                   height: 350,
                   width: 350,
                   child: Image.asset(
@@ -45,9 +45,9 @@ class ScreenSplash extends StatelessWidget {
   
 navigate(context) async {
   await Future.delayed(const Duration(seconds: 5));
-  Navigator.push(
+  Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => const ScreenLogin()),
+    MaterialPageRoute(builder: (context) =>  ScreenLogin()),
   );
 }
 
