@@ -39,16 +39,19 @@ class AddAdressPage extends StatelessWidget {
               fieldTitle: "Mobile", prefixIconName:iconMobile),
           sizeH10,
 
-          TextFormFieldUserCredentials(
+          TextFormFieldUserCredentials(controller: houseNameController,
             obscure: false,
               fieldTitle: "House/flat/Block No", prefixIconName: Icons.home),
                  sizeH10,
           TextFormFieldUserCredentials(
+            controller:roadNameController ,
             obscure: false,
               fieldTitle: "Appartment/Road/Area No",
               prefixIconName: Icons.apartment),
                  sizeH10,
           TextFormFieldUserCredentials(
+            controller: landmarkController,
+            
             obscure: false,
               fieldTitle: "Nearby Landmark(Optional)",
               prefixIconName: Icons.location_on_sharp),

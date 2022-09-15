@@ -111,7 +111,7 @@ class ScreenCart extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AddAdressPage(),
+                                  builder: (context) =>  AddAdressPage(),
                                 ));
                           },
                           child: const Text("Add Adress"),
@@ -209,7 +209,7 @@ void adressSelectorWidget(context) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AddAdressPage(),
+                              builder: (context) =>  AddAdressPage(),
                             ));
                       },
                     ),
