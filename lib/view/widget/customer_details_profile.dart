@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/style.dart';
+import 'package:foodies_user/services/firebase_signin_with_google_user.dart';
+import 'package:foodies_user/view/widget/fireBase_auth_Button.dart';
+import 'package:get/get.dart';
 
 SizedBox customerDetailsProfile(double heightMedia, double widthMedia) {
   return SizedBox(
@@ -71,16 +75,16 @@ SizedBox customerDetailsProfile(double heightMedia, double widthMedia) {
           child: ElevatedButton.icon(
             icon: const Icon(Icons.logout),
             style: ElevatedButton.styleFrom(
-                primary:kred,
+                primary: kred,
                 fixedSize: const Size(150, 40),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50))),
-            onPressed: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => const CheckOutPage(),
-              //     ));
+            onPressed: () async {
+              FirebaseSigninWithGoogleUser().gooleSignOUt();
+              await FirebaseAuth.instance.signOut().then((value) async {
+                Get.snackbar("Message", "User Log out Success",
+                    backgroundColor: kgreen, colorText: Colors.white);
+              });
             },
             label: const Text("Log out"),
           ),

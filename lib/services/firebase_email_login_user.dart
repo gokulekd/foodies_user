@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_user/view/widget/BottomNavigationBar.dart';
 import 'package:get/get.dart';
 
-class FirebaseEmailSignInUser {
+class FirebaseEmailLoginUser {
   final _firebaseAuth = FirebaseAuth.instance;
   userLogin(String email, String password) async {
     try {
@@ -13,6 +14,7 @@ class FirebaseEmailSignInUser {
         password: password,
       )
           .then((value) {
+        Get.to(() => const CustomBottomNavigationBar());
         Get.snackbar("Message", "user login Sucsses",
             backgroundColor: Colors.green, colorText: Colors.white);
         return value;

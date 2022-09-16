@@ -1,6 +1,9 @@
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/view/pages/firebase%20authentication%20module/screen_login.dart';
+import 'package:foodies_user/view/widget/BottomNavigationBar.dart';
 import 'package:lottie/lottie.dart';
 
 class ScreenSplash extends StatelessWidget {
@@ -22,7 +25,6 @@ class ScreenSplash extends StatelessWidget {
             ),
             Center(
               child: SizedBox(
-                  
                   height: 350,
                   width: 350,
                   child: Image.asset(
@@ -42,13 +44,26 @@ class ScreenSplash extends StatelessWidget {
       ),
     );
   }
-  
-navigate(context) async {
-  await Future.delayed(const Duration(seconds: 5));
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) =>  ScreenLogin()),
-  );
-}
 
+  navigate(context) async {
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              log("connection state acitive");
+              if (snapshot.hasData) {
+                return const CustomBottomNavigationBar();
+              }
+            }
+
+            return ScreenLogin();
+          },
+        ),
+      ),
+    );
+  }
 }

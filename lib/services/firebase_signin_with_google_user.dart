@@ -16,7 +16,7 @@ class FirebaseSigninWithGoogleUser {
     await googleSignIn.signOut();
   }
 
-  googleLogin(context) async {
+  googleLogin() async {
     try {
       final googleUser = await googleSignIn.signIn();
 

@@ -5,7 +5,6 @@ import 'package:foodies_user/view/pages/firebase%20authentication%20module/scree
 import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

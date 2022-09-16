@@ -1,9 +1,8 @@
 import 'dart:developer';
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_user/view/widget/BottomNavigationBar.dart';
 import 'package:get/get.dart';
 
 class FirebaseCreateUserWithEmail {
@@ -27,6 +26,8 @@ class FirebaseCreateUserWithEmail {
           'password': password,
           "mobile": mobile,
           'role': "user"
+        }).then((value) async {
+          Get.to(() => const CustomBottomNavigationBar());
         });
       });
       Get.snackbar("Message", "Created User Sucssesfully",

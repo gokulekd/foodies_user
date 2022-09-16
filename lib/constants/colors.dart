@@ -8,6 +8,7 @@ const kwhite = Colors.white;
 const kblack = Colors.black;
 const KbargoundColor =  Color.fromARGB(255, 234, 244, 241);
 const kred = Color.fromARGB(255, 144, 70, 65);
+const kgreen = Colors.green;
 const addTocartwidgetcolor= Color.fromARGB(255, 188, 205, 210);
 
 
