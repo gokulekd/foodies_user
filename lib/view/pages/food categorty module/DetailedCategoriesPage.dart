@@ -8,8 +8,10 @@ import 'package:foodies_user/view/widget/CartPage_food_widget.dart';
 
 // ignore: must_be_immutable
 class DetailedCategoriesPage extends StatelessWidget {
-  DetailedCategoriesPage({Key? key}) : super(key: key);
-  int value = 0;
+  int categoryindex;
+
+  DetailedCategoriesPage({Key? key,required this.categoryindex}) : super(key: key);
+   int value = 0;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
@@ -6,19 +7,31 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
-import 'package:foodies_user/view/pages/food%20categorty%20module/DetailedCategoriesPage.dart';
+
+import '../pages/food categorty module/DetailedCategoriesPage.dart';
 
 // ignore: must_be_immutable
 class CategoriesWidgetFoodspage extends StatelessWidget {
-  String burgerType;
-  CategoriesWidgetFoodspage({Key? key, required this.burgerType})
+
+String burgerType;
+int index;
+  CategoriesWidgetFoodspage({Key? key, required this.burgerType,required this.index})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailedCategoriesPage(),));
+
+                 log("tapped>>>>>>>>>>>>>>>>>>>>>>>$index");
+            
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailedCategoriesPage(categoryindex: index),
+                                      ));
+       
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

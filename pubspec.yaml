@@ -45,6 +45,7 @@ dependencies:
   google_sign_in: ^5.4.1
   cloud_firestore: ^3.4.7
   google_maps_flutter: ^2.2.0
+  video_player: ^2.4.7
 
 dev_dependencies:
   flutter_test:

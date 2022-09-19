@@ -14,73 +14,79 @@ class CommonBurgerShowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-          
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-              height: 200,
-              width: double.infinity,
-              child:  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 190,
-                          width: 190,
-                          decoration: BoxDecoration(
-                            borderRadius: circle10,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: circle30,
-                            child: Image.network(
-                              allProductModel.image.toString(),
-                              fit: BoxFit.cover,
-                            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+          height: 200,
+          width: double.infinity,
+          child:  Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  children: [
+                    allProductModel.image!.isEmpty?    Container(
+                      height: 190,
+                      width: 190,
+                      decoration: BoxDecoration(
+                        borderRadius: circle10,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: circle30,
+                        child:CircularProgressIndicator()
+                      ),
+                    ):
+                    Container(
+                      height: 190,
+                      width: 190,
+                      decoration: BoxDecoration(
+                        borderRadius: circle10,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: circle30,
+                        child: Image.network(
+                          allProductModel.image.toString(),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.7),
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30))),
+                        height: 80,
+                        width: 190,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                              Text(
+                                allProductModel.productName.toString(),
+                                style: const TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                 allProductModel.category.toString() ,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: kred),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.7),
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(30),
-                                    bottomRight: Radius.circular(30))),
-                            height: 80,
-                            width: 190,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children:  [
-                                  Text(
-                                    allProductModel.productName.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 17, fontWeight: FontWeight.bold),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Text(
-                                     allProductModel.category.toString() ,
-                                      style: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: kred),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-        ),
-        ),
-      ]
+                      ),
+                    )
+                  ],
+                ),
+              )
+    ),
     );
   }
 }
