@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/colors.dart';
+import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/model/all_product_model.dart';
 import 'package:foodies_user/view/pages/drawer/navigation_drawer.dart';
+import 'package:foodies_user/view/widget/BurgerOfferWidget.dart';
 import 'package:foodies_user/view/widget/CommonBurgerShowWidget.dart';
 import 'package:foodies_user/view/widget/Current_Location_Homepage.dart';
 import 'package:foodies_user/view/widget/CustomAppBar.dart';
@@ -32,6 +34,9 @@ class ScreenHomePage extends StatelessWidget {
           const SliverToBoxAdapter(
             child: SearchBar(),
           ),
+          SliverToBoxAdapter(
+              child: CategoryTitle(title: "offers", iconName: iconoffers)),
+          const SliverToBoxAdapter(child: BurgerOfferWidget()),
           SliverList(
             delegate: SliverChildBuilderDelegate((context, i) {
               return StreamBuilder(
@@ -45,7 +50,7 @@ class ScreenHomePage extends StatelessWidget {
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: allCategorySnapshot.data!.docs.length,
                       itemBuilder: (context, mainIndex) {
                         return StreamBuilder(
                           stream: FirebaseFirestore.instance
@@ -66,45 +71,25 @@ class ScreenHomePage extends StatelessWidget {
                                         .data!.docs[mainIndex]["category Name"],
                                   ),
                                   GridView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              childAspectRatio: 10 / 9,
-                                              crossAxisSpacing: 16,
-                                              mainAxisSpacing: 20),
-                                      itemCount: singleSnapshotofCategory
-                                          .data!.docs.length,
-                                      itemBuilder: (BuildContext ctx, index) {
-                                        return CommonBurgerShowWidget(
-                                          allProductModel: AllProductModel()
-                                              .productFromJson(
-                                                  singleSnapshotofCategory
-                                                      .data!.docs[index]),
-                                        );
-
-                                        //  Padding(
-                                        //   padding: const EdgeInsets.all(8.0),
-                                        //   child: ListView.builder(
-
-                                        //     physics:
-                                        //         const NeverScrollableScrollPhysics(),
-                                        //     itemCount: singleSnapshotofCategory
-                                        //         .data!.docs.length,
-                                        //     shrinkWrap: true,
-                                        //     itemBuilder: (context, index) {
-                                        //       return CommonBurgerShowWidget(
-                                        //         allProductModel: AllProductModel()
-                                        //             .productFromJson(
-                                        //                 singleSnapshotofCategory
-                                        //                     .data!.docs[index]),
-                                        //       );
-                                        //     },
-                                        //   ),
-                                        // );
-                                      }),
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            childAspectRatio: 5 / 6.5,
+                                            crossAxisSpacing: 5,
+                                            mainAxisSpacing: 5),
+                                    itemCount: 2,
+                                    itemBuilder: (BuildContext ctx, index) {
+                                      return CommonBurgerShowWidget(
+                                        allProductModel: AllProductModel()
+                                            .productFromJson(
+                                                singleSnapshotofCategory
+                                                    .data!.docs[index]),
+                                      );
+                                    },
+                                  ),
                                 ],
                               );
                             }

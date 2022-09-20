@@ -40,8 +40,9 @@ class ScreenCart extends StatelessWidget {
                   itemCount: 2,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return CartPageFoodDetails(
-                        height: heightMedia, width: widthMedia);
+                    return SizedBox();
+                    // return CartPageFoodDetails(burgerType: "",
+                    //     height: heightMedia, width: widthMedia);
                   },
                 ),
               ),

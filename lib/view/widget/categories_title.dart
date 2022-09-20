@@ -26,7 +26,7 @@ class CategoryTitle extends StatelessWidget {
       ),
       title:  Text(
         title,
-        style: const TextStyle(color: Color.fromARGB(255, 185, 87, 80)),
+        style: const TextStyle(color: Color.fromARGB(255, 185, 87, 80),fontSize: 17),
       ),
      
       trailing: InkWell(

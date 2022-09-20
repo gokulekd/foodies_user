@@ -1,6 +1,7 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
@@ -15,13 +16,16 @@ class CategoriesWidgetFoodspage extends StatelessWidget {
 
 String burgerType;
 int index;
-  CategoriesWidgetFoodspage({Key? key, required this.burgerType,required this.index})
+Stream<QuerySnapshot<Map<String, dynamic>>>? streamName;
+  CategoriesWidgetFoodspage({Key? key, required this.burgerType,required this.index, required this.streamName})
       : super(key: key);
+
+      
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: ()async{
 
                  log("tapped>>>>>>>>>>>>>>>>>>>>>>>$index");
             
@@ -29,7 +33,7 @@ int index;
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            DetailedCategoriesPage(categoryindex: index),
+                                            DetailedCategoriesPage(categoryindex: index, ),
                                       ));
        
       },
