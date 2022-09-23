@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
-import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
-import 'package:foodies_user/constants/sized_box.dart';
+
 
 
 

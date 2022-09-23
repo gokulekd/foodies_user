@@ -15,9 +15,9 @@ import 'package:foodies_user/model/adressmodel.dart';
 import 'package:foodies_user/view/pages/cart%20module/CheckOutPage.dart';
 import 'package:foodies_user/view/pages/cart%20module/add_adress_page.dart';
 import 'package:foodies_user/view/pages/cart%20module/update_adress_page.dart';
-import 'package:foodies_user/view/widget/order_billing_splitup_widget.dart';
 import 'package:get/get.dart';
 import '../../widget/deliveryAdressViewWidget.dart';
+import 'widgets/products_in_cart_widget.dart';
 
 class ScreenCart extends StatelessWidget {
   const ScreenCart({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class ScreenCart extends StatelessWidget {
   Widget build(BuildContext context) {
     var widthMedia = MediaQuery.of(context).size.width;
     var heightMedia = MediaQuery.of(context).size.height;
-   
+    final controller = Get.put(CartController());
     return Scaffold(
       backgroundColor: KbargoundColor,
       appBar: AppBar(
@@ -40,72 +40,26 @@ class ScreenCart extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-
-  // StreamBuilder(
-  //               stream: FirebaseFirestore.instance
-  //                   .collection("all Category")
-  //                   .snapshots(),
-  //               builder: (context,
-  //                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-  //                       allCategorySnapshot) {
-  //                 if (allCategorySnapshot.hasData) {
-  //                   return ListView.builder(
-  //                     shrinkWrap: true,
-  //                     physics: const NeverScrollableScrollPhysics(),
-  //                     itemCount: allCategorySnapshot.data!.docs.length,
-  //                     itemBuilder: (context, mainIndex) {
-  //                       return StreamBuilder(
-  //                         stream: FirebaseFirestore.instance
-  //                             .collection("ProductList")
-  //                             .doc(FirebaseAuth.instance.currentUser!.uid)
-  //                             .collection(allCategorySnapshot
-  //                                 .data!.docs[mainIndex]["category Name"])
-  //                             .snapshots(),
-  //                         builder: (context,
-  //                             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-  //                                 singleSnapshotofCategory) {
-  //                           if (singleSnapshotofCategory.hasData) {
-                             
-  //                           }
-  //                           return const SizedBox();
-  //                         },
-  //                       );
-  //                     },
-  //                   );
-  //                 }
-  //                 return const Center(
-  //                   child: SizedBox(
-  //                     height: 50,
-  //                     child: CircularProgressIndicator(),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-
-
-            // StreamBuilder(
-            //   stream: FirebaseFirestore.instance.collection("ProductList").doc(FirebaseAuth.instance.currentUser!.uid).
-            //   builder: (context, snapshot) {
-            //     return Padding(
-            //       padding: const EdgeInsets.all(10.0),
-            //       child: Center(
-            //         child: ListView.separated(
-            //           separatorBuilder: (context, index) => sizeH10,
-            //           itemCount: controller.cartProducts.length,
-            //           shrinkWrap: true,
-            //           itemBuilder: (context, index) {
-            //             return ProductsInCartWidget(
-            //                 controller: controller,
-            //                 index: index,
-            //                 product: controller.cartProducts.keys.toList()[index],
-            //                 quantity:
-            //                     controller.cartProducts.values.toList()[index]);
-            //           },
-            //         ),
-            //       ),
-            //     );
-            //   }
-            // ),
+            Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => sizeH10,
+                    itemCount: controller.cartProducts.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ProductsInCartWidget(
+                          controller: controller,
+                          index: index,
+                          product: controller.cartProducts.keys.toList()[index],
+                          quantity:
+                              controller.cartProducts.values.toList()[index]);
+                    },
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
@@ -125,7 +79,6 @@ class ScreenCart extends StatelessWidget {
                 ),
               ),
             ),
-            orderBillingSplitup(heightMedia, widthMedia),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -259,37 +212,39 @@ class ScreenCart extends StatelessWidget {
                 }
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: kwhite,
-                  border: Border.all(color: loginColor, width: 0.5),
-                  borderRadius: circle20,
-                ),
-                child: ListTile(
-                  title: Text(
-                    "Total amount : 349",
-                    style: googleNormalFont,
+            Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: kwhite,
+                    border: Border.all(color: loginColor, width: 0.5),
+                    borderRadius: circle20,
                   ),
-                  subtitle: Text(
-                    "total items : 3",
-                    style: googlefontBlackFont15,
-                  ),
-                  trailing: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 48, 116, 46),
-                        fixedSize: const Size(150, 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50))),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CheckOutPage(),
-                          ));
-                    },
-                    child: const Text("Proceed to pay"),
+                  child: ListTile(
+                    title: Text(
+                      "Total amount : ${controller.total}",
+                      style: googleNormalFont,
+                    ),
+                    subtitle: Text(
+                      "total items : ${controller.subCount}",
+                      style: googlefontBlackFont15,
+                    ),
+                    trailing: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 48, 116, 46),
+                          fixedSize: const Size(150, 40),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50))),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CheckOutPage(),
+                            ));
+                      },
+                      child: const Text("Proceed to pay"),
+                    ),
                   ),
                 ),
               ),

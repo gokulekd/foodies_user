@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AllProductModel{
     String? image;
   String? productName;
-  String? price;
+  int? price;
   String? quantity;
   String? category;
   String? discription;
@@ -31,7 +31,7 @@ class AllProductModel{
       };
 
   productFromJson(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
-    // var snapshotData = snapshot as  Map<String, dynamic>;
+   
 
     return AllProductModel(
         image: snapshot["ProductImage"],

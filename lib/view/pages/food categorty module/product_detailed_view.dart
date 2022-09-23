@@ -98,7 +98,7 @@ class ProductDetailedViewPage extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      "₹ ${value.price.toString()}",
+                                      "₹ ${value.price!.toString()}",
                                       style: const TextStyle(
                                         color: kgreen,
                                         fontSize: 20,
@@ -172,8 +172,8 @@ class ProductDetailedViewPage extends StatelessWidget {
                                 Positioned(
                                   right: -30,
                                   child: InkWell(
-                                    onTap: () {
-                                      log(">>>>>>pressed remove product to cart");
+                                    onTap: ()async {
+                                     await  controller.removeProductFromCart(value);
                                     },
                                     child: Container(
                                       height: 60,
