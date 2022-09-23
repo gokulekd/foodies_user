@@ -78,9 +78,7 @@ class Screenfoods extends StatelessWidget {
               );
             },
           )
-          //   CategoriesWidgetFoodspage(burgerType: "New Arrivals"),
-          // CategoriesWidgetFoodspage(burgerType: "Non-Veg Burger"),
-          // CategoriesWidgetFoodspage(burgerType: "Veg Burger"),
+         
         ],
       )),
     );

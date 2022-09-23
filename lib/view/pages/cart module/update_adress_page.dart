@@ -5,14 +5,15 @@ import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/view/widget/TextFormFieldUserCredentials.dart';
 import 'package:foodies_user/view/widget/login_signup_button.dart';
 
+// ignore: must_be_immutable
 class UpdateAdressPage extends StatelessWidget {
    UpdateAdressPage({Key? key}) : super(key: key);
-   TextEditingController nameController = TextEditingController();
-   TextEditingController mobileController = TextEditingController();
-    TextEditingController houseNameController = TextEditingController();
-     TextEditingController roadNameController = TextEditingController();
-          TextEditingController landmarkController = TextEditingController();
-               TextEditingController discriptionController = TextEditingController();
+   TextEditingController nameController = TextEditingController(text: "");
+   TextEditingController mobileController = TextEditingController(text:"" );
+    TextEditingController houseNameController = TextEditingController(text: "");
+     TextEditingController roadNameController = TextEditingController(text: "");
+          TextEditingController landmarkController = TextEditingController(text: "");
+               TextEditingController discriptionController = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
     return Scaffold(

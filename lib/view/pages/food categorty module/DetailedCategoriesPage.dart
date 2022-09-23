@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,25 +8,22 @@ import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/model/all_product_model.dart';
 import 'package:foodies_user/view/pages/cart%20module/screen_cart.dart';
+import 'package:foodies_user/view/pages/food%20categorty%20module/product_detailed_view.dart';
 import 'package:foodies_user/view/widget/CartPage_food_widget.dart';
-import 'package:foodies_user/view/widget/CommonBurgerShowWidget.dart';
-import 'package:foodies_user/view/widget/categories_title.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class DetailedCategoriesPage extends StatelessWidget {
   int categoryindex;
 
-
-  DetailedCategoriesPage(
-      {Key? key,
-      required this.categoryindex,
-      })
-      : super(key: key);
+  DetailedCategoriesPage({
+    Key? key,
+    required this.categoryindex,
+  }) : super(key: key);
   int value = 0;
 
   @override
   Widget build(BuildContext context) {
-    // log(categoryindex.toString());
     var widthMedia = MediaQuery.of(context).size.width;
     var heightMedia = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -81,16 +77,24 @@ class DetailedCategoriesPage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 15),
                                 child: ListView.separated(
+                                  padding: const EdgeInsets.only(bottom: 150),
                                   itemCount: singleSnapshotofCategory
                                       .data!.docs.length,
                                   itemBuilder: (context, index) {
-                                    return CartPageFoodDetails(
-                                      height: heightMedia,
-                                      width: widthMedia,
-                                      allProductModel: AllProductModel()
-                                          .productFromJson(
-                                              singleSnapshotofCategory
-                                                  .data!.docs[index]),
+                                    return InkWell(
+                                      onTap: (() {
+                                       Get.to(()=>ProductDetailedViewPage(categoriesIndex:categoryindex ,productIndex: index,));
+                                       log(">>>>>>>>>>${index.toString()}");
+                                      }
+                                      ),
+                                      child: CartPageFoodDetails(
+                                        height: heightMedia,
+                                        width: widthMedia,
+                                        allProductModel: AllProductModel()
+                                            .productFromJson(
+                                                singleSnapshotofCategory
+                                                    .data!.docs[index]),
+                                      ),
                                     );
                                   },
                                   separatorBuilder: (context, index) => sizeH20,
@@ -177,29 +181,3 @@ class DetailedCategoriesPage extends StatelessWidget {
   }
 }
 
-
-
-              // Align(
-              //   alignment: Alignment.bottomCenter,
-              //   child: Container(
-              //     height: heightMedia * 0.73,
-              //     width: widthMedia,
-              //     decoration: const BoxDecoration(
-              //       color: KbargoundColor,
-              //       borderRadius: BorderRadius.only(
-              //           topLeft: Radius.circular(30),
-              //           topRight: Radius.circular(40)),
-              //     ),
-              //     child: Padding(
-              //       padding: const EdgeInsets.only(top: 15),
-              //       child: ListView.separated(
-              //         itemCount: 10,
-              //         itemBuilder: (context, index) {
-              //           return CartPageFoodDetails(
-              //               height: heightMedia, width: widthMedia);
-              //         },
-              //         separatorBuilder: (context, index) => sizeH20,
-              //       ),
-              //     ),
-              //   ),
-              // ),

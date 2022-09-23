@@ -3,10 +3,11 @@ import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/sized_box.dart';
+import 'package:foodies_user/model/Selected_delivery_adress.dart';
 import 'package:foodies_user/view/pages/cart%20module/screen_cart.dart';
 
 Padding deliveryAdressViewWidget(
-    double heightMedia, double widthMedia, BuildContext context) {
+    double heightMedia, double widthMedia, BuildContext context ,SelectedDeliveryAdress data) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -37,11 +38,12 @@ Padding deliveryAdressViewWidget(
                     border: Border.all(color: Colors.black),
                     borderRadius: circle5),
                 child: Icon(iconHome)),
-            title: const Text(
-              "Home",
+            title:  Text(
+              data.name!,
             ),
-            subtitle: const Text(
-                "Gokulam House,ennakad po,chengannur -689624,alappuzha,kerala"),
+            subtitle:  Text(
+              "${data.houseName!.toString()} ${data.areaNo!.toString()} ${data.landMark!.toString()}"
+               ),
             trailing: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   primary: loginColor,
@@ -49,7 +51,7 @@ Padding deliveryAdressViewWidget(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50))),
               onPressed: () {
-              adressSelectorWidget(context);
+              adressSelectorWidget();
               },
               child: const Text("change"),
             ),
