@@ -240,7 +240,7 @@ class ScreenCart extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CheckOutPage(),
+                              builder: (context) =>  CheckOutPage(amount: controller.total,itemCount: controller.subCount),
                             ));
                       },
                       child: const Text("Proceed to pay"),
