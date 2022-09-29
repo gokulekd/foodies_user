@@ -1,45 +1,49 @@
 import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:foodies_user/constants/colors.dart';
+import 'package:foodies_user/model/add_to_cart.dart';
 import 'package:foodies_user/model/all_product_model.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
   final RxMap<AllProductModel, int> cartProducts = <AllProductModel, int>{}.obs;
 
-  addProductToCart(AllProductModel product) async {
-  
-
-
-
-    if (cartProducts.containsKey(product.productName)) {
-      cartProducts[product] = cartProducts[product]! + 1;
-      
-    } else {
-      cartProducts[product] = 1;
-    }
-   
+  addProductToCart(AddtoCart product) async {
+    var data = product.toJson();
     try {
-      await FirebaseFirestore.instance
-          .collection("user cart")
+      final alldata = await FirebaseFirestore.instance
+          .collection("User cart")
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set({
-        "productName": product.productName!.toString(),
-        "itemCount": cartProducts.value.values.toString()
-      });
-    } on FirebaseException catch (e) {
-      log(e.message.toString());
-    } catch (e) {
-      log(e.toString());
-    }
-    log(cartProducts.value.toString());
-    Get.snackbar(
-      "Product added",
-      "You Have added the ${product.productName!.toString()} to the cart",
-      snackPosition: SnackPosition.TOP,
-    );
+          .collection("cart Item")
+          .where("id", isEqualTo: product.id)
+          .get();
 
-    // });
+      log(alldata.docs.toString());
+      if (alldata.docs.isNotEmpty) {
+        await FirebaseFirestore.instance
+            .collection("User cart")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("cart Item")
+            .doc(product.id)
+            .update({"quantity": FieldValue.increment(1)});
+      } else {
+        await FirebaseFirestore.instance
+            .collection("User cart")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("cart Item")
+            .doc(product.id)
+            .set(data);
+      }
+    } on FirebaseException catch (e) {
+      Get.snackbar("error", e.message.toString(),
+          backgroundColor: kred, colorText: kwhite);
+    } catch (e) {
+      log(">>>>>Product add to cart Error>>>>${e.toString()}");
+    }
+
+    log(data.toString());
   }
 
   removeProductFromCart(AllProductModel product) async {

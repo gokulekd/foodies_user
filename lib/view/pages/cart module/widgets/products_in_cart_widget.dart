@@ -27,7 +27,7 @@ class ProductsInCartWidget extends StatelessWidget {
           ),
           sizeW10,
           Expanded(child: Text(product.productName!)),
-          IconButton(onPressed: (){controller.addProductToCart(product);}, icon: Icon(Icons.add)),
+          // IconButton(onPressed: (){controller.addProductToCart(product);}, icon: Icon(Icons.add)),
           Text("$quantity"),
               IconButton(onPressed: (){controller.removeProductFromCart(product);}, icon: const Icon(Icons.remove))
 

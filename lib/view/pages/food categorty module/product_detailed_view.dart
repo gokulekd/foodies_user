@@ -8,6 +8,7 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/constants/style.dart';
 import 'package:foodies_user/controller/cart_controller.dart';
+import 'package:foodies_user/model/add_to_cart.dart';
 import 'package:foodies_user/model/all_product_model.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -163,7 +164,12 @@ class ProductDetailedViewPage extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    controller.addProductToCart(value);
+                                    final model = AddtoCart(
+                                        id: value.id!,
+                                        name: value.productName!,
+                                        price: value.price!,
+                                        image: value.image!,quantity: 1);
+                                    controller.addProductToCart(model);
                                   },
                                   style: ElevatedButton.styleFrom(
                                       primary:
@@ -175,10 +181,7 @@ class ProductDetailedViewPage extends StatelessWidget {
                                   child: const Text('Add to Cart'),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {
-                                    
-                                    
-                                  },
+                                  onPressed: () {},
                                   style: ElevatedButton.styleFrom(
                                       primary: const Color.fromARGB(
                                           255, 135, 59, 23),
