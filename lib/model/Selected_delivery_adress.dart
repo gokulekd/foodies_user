@@ -24,12 +24,13 @@ class SelectedDeliveryAdress {
     String? name;
 
     factory SelectedDeliveryAdress.fromJson(Map<String, dynamic>? json) => SelectedDeliveryAdress(
-        documentId: json!["Document Id"],
-        areaNo: json["areaNo"],
-        houseName: json["houseName"],
-        landMark: json["landMark"],
-        mobile: json["mobile"],
-        name: json["name"],
+        documentId: json?["Document Id"]??"",
+
+        areaNo: json?["areaNo"]??"",
+        houseName: json?["houseName"]??"",
+        landMark: json?["landMark"]??"",
+        mobile: json?["mobile"]??"",
+        name: json?["name"]??"",
     );
 
     Map<String, dynamic>? toJson() => {

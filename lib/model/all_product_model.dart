@@ -1,37 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AllProductModel{
-    String? image;
+class AllProductModel {
+  String? image;
   String? productName;
   int? price;
-  String? quantity;
+  int? quantity;
   String? category;
   String? discription;
-  String? uid;
+  String? documentID;
+  bool? available;
 
-  AllProductModel({
-     this.image,
-     this.productName,
-     this.price,
-     this.quantity,
-     this.category,
-     this.discription,
-     this.uid,
+  AllProductModel(
+      {this.image,
+      this.productName,
+      this.price,
+      this.quantity,
+      this.category,
+      this.discription,
+      this.documentID,
+      this.available});
 
-  });
-
-  Map<String, dynamic> ProductToJson() => {
+  Map<String, dynamic> productToJson() => {
         "ProductImage": image,
         "productName": productName,
         "Price": price,
         "Category": category,
         "quantity": quantity,
         "discription": discription,
-        "uid": uid
+        "documentID": documentID,
+        "available": available,
       };
 
   productFromJson(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
-   
+    // var snapshotData = snapshot as  Map<String, dynamic>;
 
     return AllProductModel(
         image: snapshot["ProductImage"],
@@ -40,8 +41,7 @@ class AllProductModel{
         quantity: snapshot["quantity"],
         category: snapshot["Category"],
         discription: snapshot["discription"],
-        uid: snapshot["uid"]
-        
-        );
+        documentID: snapshot["documentID"],
+        available: snapshot["available"]);
   }
 }

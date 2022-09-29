@@ -101,6 +101,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
+          Container(height: 200,
+          child:Image.network("https://images.newindianexpress.com/uploads/user/imagelibrary/2022/5/10/w900X450/Razorpay.jpg?w=400&dpr=2.6"),),
           ElevatedButton(onPressed: ()async {
             openCheckout();
 

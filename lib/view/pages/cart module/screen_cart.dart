@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,26 +39,33 @@ class ScreenCart extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Obx(
-              () => Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => sizeH10,
-                    itemCount: controller.cartProducts.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return ProductsInCartWidget(
-                          controller: controller,
-                          index: index,
-                          product: controller.cartProducts.keys.toList()[index],
-                          quantity:
-                              controller.cartProducts.values.toList()[index]);
-                    },
-                  ),
-                ),
-              ),
-            ),
+            Obx(() => controller.cartProducts.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => sizeH10,
+                        itemCount: controller.cartProducts.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return ProductsInCartWidget(
+                              controller: controller,
+                              index: index,
+                              product:
+                                  controller.cartProducts.keys.toList()[index],
+                              quantity: controller.cartProducts.values
+                                  .toList()[index]);
+                        },
+                      ),
+                    ),
+                  )
+                : Container(
+                    height: 200,
+                    width: double.infinity,
+                    child: const Center(
+                      child: Text("No items in the cart"),
+                    ),
+                  )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
@@ -79,62 +85,6 @@ class ScreenCart extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: heightMedia * 0.2,
-                width: widthMedia * 0.95,
-                decoration: BoxDecoration(
-                    borderRadius: circle30,
-                    color: kwhite,
-                    border: Border.all(color: Colors.grey)),
-                child: Column(
-                  children: [
-                    sizeH20,
-                    const Text(
-                      "You are in a new location",
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    sizeH10,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary:
-                                    const Color.fromARGB(255, 68, 139, 118),
-                                fixedSize: const Size(150, 40),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50))),
-                            onPressed: () async {
-                              adressSelectorWidget();
-                            },
-                            child: const Text("Select Adress")),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 68, 139, 118),
-                              fixedSize: const Size(150, 40),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddAdressPage(),
-                                ));
-                          },
-                          child: const Text("Add Adress"),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("selected Delivery Adress")
@@ -143,32 +93,45 @@ class ScreenCart extends StatelessWidget {
               builder: (context,
                   AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
                       snapshot) {
-                if (!snapshot.hasError && snapshot.data == null) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: heightMedia * 0.2,
-                      width: widthMedia * 0.95,
-                      decoration: BoxDecoration(
-                          borderRadius: circle30,
-                          color: kwhite,
-                          border: Border.all(color: Colors.grey)),
-                      child: Column(
-                        children: [
-                          sizeH20,
-                          const Text(
-                            "You are in a new location",
-                            style: TextStyle(
-                                fontSize: 19, fontWeight: FontWeight.bold),
-                          ),
-                          const Divider(
-                            thickness: 1,
-                          ),
-                          sizeH10,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
+                if (snapshot.hasData) {
+                  if (snapshot.data?.data() == null) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: heightMedia * 0.2,
+                        width: widthMedia * 0.95,
+                        decoration: BoxDecoration(
+                            borderRadius: circle30,
+                            color: kwhite,
+                            border: Border.all(color: Colors.grey)),
+                        child: Column(
+                          children: [
+                            sizeH20,
+                            const Text(
+                              "You are in a new location",
+                              style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold),
+                            ),
+                            const Divider(
+                              thickness: 1,
+                            ),
+                            sizeH10,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: const Color.fromARGB(
+                                            255, 68, 139, 118),
+                                        fixedSize: const Size(150, 40),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50))),
+                                    onPressed: () async {
+                                      adressSelectorWidget();
+                                    },
+                                    child: const Text("Select Adress")),
+                                ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       primary: const Color.fromARGB(
                                           255, 68, 139, 118),
@@ -176,79 +139,79 @@ class ScreenCart extends StatelessWidget {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(50))),
-                                  onPressed: () async {
-                                    adressSelectorWidget();
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AddAdressPage(),
+                                        ));
                                   },
-                                  child: const Text("Select Adress")),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary:
-                                        const Color.fromARGB(255, 68, 139, 118),
-                                    fixedSize: const Size(150, 40),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50))),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddAdressPage(),
-                                      ));
-                                },
-                                child: const Text("Add Adress"),
-                              ),
-                            ],
-                          )
-                        ],
+                                  child: const Text("Add Adress"),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    return deliveryAdressViewWidget(
+                        heightMedia,
+                        widthMedia,
+                        context,
+                        SelectedDeliveryAdress.fromJson(snapshot.data!.data()));
+                  }
                 } else {
-                  return deliveryAdressViewWidget(
-                      heightMedia,
-                      widthMedia,
-                      context,
-                      SelectedDeliveryAdress.fromJson(snapshot.data!.data()));
+                  return const SizedBox(
+                    height: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
                 }
               },
             ),
-            Obx(
-              () => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: kwhite,
-                    border: Border.all(color: loginColor, width: 0.5),
-                    borderRadius: circle20,
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      "Total amount : ${controller.total}",
-                      style: googleNormalFont,
+            Obx(() => controller.cartProducts.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kwhite,
+                        border: Border.all(color: loginColor, width: 0.5),
+                        borderRadius: circle20,
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          controller.cartProducts.isNotEmpty
+                              ? "Total amount : ${controller.total}"
+                              : "Total amount : 0",
+                          style: googleNormalFont,
+                        ),
+                        subtitle: Text(
+                          controller.cartProducts.isNotEmpty
+                              ? "total items : ${controller.subCount}"
+                              : "total items : 0 ",
+                          style: googlefontBlackFont15,
+                        ),
+                        trailing: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: const Color.fromARGB(255, 48, 116, 46),
+                              fixedSize: const Size(150, 40),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CheckOutPage(
+                                      amount: controller.total,
+                                      itemCount: controller.subCount),
+                                ));
+                          },
+                          child: const Text("Proceed to pay"),
+                        ), 
+                      ),
                     ),
-                    subtitle: Text(
-                      "total items : ${controller.subCount}",
-                      style: googlefontBlackFont15,
-                    ),
-                    trailing: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 48, 116, 46),
-                          fixedSize: const Size(150, 40),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50))),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>  CheckOutPage(amount: controller.total,itemCount: controller.subCount),
-                            ));
-                      },
-                      child: const Text("Proceed to pay"),
-                    ),
-                  ),
-                ),
-              ),
-            )
+                  )
+                : const SizedBox())
           ],
         ),
       ),

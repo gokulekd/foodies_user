@@ -8,6 +8,8 @@ import 'package:foodies_user/view/pages/drawer/feebbackPage.dart';
 import 'package:foodies_user/view/pages/drawer/privacy_and_policy.dart';
 import 'package:foodies_user/view/pages/drawer/terms_and_conditions.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -27,23 +29,43 @@ class NavigationDrawer extends StatelessWidget {
           Text("Burger",
               style: GoogleFonts.fredokaOne(fontSize: 40, color: loginColor)),
           sizeH20,
-           buiditemlist(
-              iconname: shareAppicon, name: "Share the app", onPressed: () {}),
-        
+          buiditemlist(
+              iconname: shareAppicon,
+              name: "Share the app",
+              onPressed: () async {
+                await Share.share("https://github.com/gokulekd/foodies_user.git");
+              }),
           buiditemlist(
               iconname: privacyIcon,
               name: "Privacy and policy",
-              onPressed: () => selectedIndexPage(context,2 )),
+              onPressed: () => selectedIndexPage(context, 2)),
           buiditemlist(
               iconname: termsANdConditionsicon,
               name: "Terms and Conditions",
               onPressed: () => selectedIndexPage(context, 3)),
-       
-          buiditemlist(iconname: abouticon, name: "about", onPressed: () {}),
+          buiditemlist(
+              iconname: abouticon,
+              name: "about",
+              onPressed: () async {
+                PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+                return showAboutDialog(
+                    context: context,
+                    applicationName: packageInfo.appName,
+                    applicationVersion: packageInfo.version,
+                    applicationIcon: CircleAvatar(
+                        radius: (52),
+                        backgroundColor: Colors.white,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset(
+                              "assets/foodie_user_app/App Small Icon.png"),
+                        )));
+              }),
           buiditemlist(
               iconname: feedbackicon,
               name: "Feed Back",
-              onPressed: () => selectedIndexPage(context, 6)),
+              onPressed: () => selectedIndexPage(context, 5)),
         ],
       ),
     );
@@ -88,17 +110,14 @@ selectedIndexPage(BuildContext context, int index) {
       Navigator.push(context,
           MaterialPageRoute(builder: (_) => const TermsAndConditions()));
       break;
-    //  case 4:
-    // Navigator.push(context,
-    //     MaterialPageRoute(builder: (_) => const TermsAndConditions()));
-    // break;
-    //  case 5:
-    // Navigator.push(context,
-    //     MaterialPageRoute(builder: (_) => const TermsAndConditions()));
-    // break;
-    case 6:
+    // case 4:
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (_) => ));
+
+    //   break;
+    case 5:
       Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const FeedBackPage()));
+          context, MaterialPageRoute(builder: (_) => const FeedBackToMail()));
       break;
   }
 }

@@ -15,10 +15,10 @@ import 'package:get/get_core/src/get_main.dart';
 class ProductDetailedViewPage extends StatelessWidget {
   final int productIndex;
   final int categoriesIndex;
-   ProductDetailedViewPage(
+  ProductDetailedViewPage(
       {Key? key, required this.productIndex, required this.categoriesIndex})
       : super(key: key);
- CartController controller = Get.put(CartController());
+  CartController controller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     double heightMedia = MediaQuery.of(context).size.height;
@@ -131,82 +131,6 @@ class ProductDetailedViewPage extends StatelessWidget {
                                   height: heightMedia * 0.1,
                                   width: double.infinity,
                                 ),
-                                Positioned(
-                                  left: -30,
-                                  child: InkWell(
-                                    onTap: ()async {
-                                   await  controller.addProductToCart(value);
-                                    },
-                                    child: Container(
-                                      height: 60,
-                                      width: 160,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 37, 138, 35),
-                                          borderRadius: circle50),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: const [
-                                          Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 16.0),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: kwhite,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 20.0),
-                                            child: Text(
-                                              "Add",
-                                              style: TextStyle(color: kwhite),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: -30,
-                                  child: InkWell(
-                                    onTap: ()async {
-                                     await  controller.removeProductFromCart(value);
-                                    },
-                                    child: Container(
-                                      height: 60,
-                                      width: 160,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 193, 89, 9),
-                                          borderRadius: circle50),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 10.0),
-                                            child: Text(
-                                              "Remove",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 8.0),
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: kwhite,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 const Positioned(
                                   left: 100,
                                   right: 100,
@@ -238,9 +162,12 @@ class ProductDetailedViewPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.addProductToCart(value);
+                                  },
                                   style: ElevatedButton.styleFrom(
-                                      primary: const Color.fromARGB(255, 48, 96, 45),
+                                      primary:
+                                          const Color.fromARGB(255, 48, 96, 45),
                                       fixedSize: const Size(150, 50),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -248,9 +175,13 @@ class ProductDetailedViewPage extends StatelessWidget {
                                   child: const Text('Add to Cart'),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    
+                                    
+                                  },
                                   style: ElevatedButton.styleFrom(
-                                      primary: const Color.fromARGB(255, 135, 59, 23),
+                                      primary: const Color.fromARGB(
+                                          255, 135, 59, 23),
                                       fixedSize: const Size(150, 50),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
