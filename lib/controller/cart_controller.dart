@@ -4,22 +4,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/model/add_to_cart.dart';
-import 'package:foodies_user/model/all_product_model.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
-  final RxMap<AllProductModel, int> cartProducts = <AllProductModel, int>{}.obs;
+      RxInt allSubtotal = 0.obs;
+  
+  @override
+  void onInit() {
+       grandTotalAmount();
+    super.onInit();
+
+  }
 
   addProductToCart(AddtoCart product) async {
     var data = product.toJson();
+    final alldata = await FirebaseFirestore.instance
+        .collection("User cart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("cart Item")
+        .where("id", isEqualTo: product.id)
+        .get();
     try {
-      final alldata = await FirebaseFirestore.instance
-          .collection("User cart")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("cart Item")
-          .where("id", isEqualTo: product.id)
-          .get();
-
       log(alldata.docs.toString());
       if (alldata.docs.isNotEmpty) {
         await FirebaseFirestore.instance
@@ -44,35 +49,93 @@ class CartController extends GetxController {
     }
 
     log(data.toString());
+
+    getSubtotal(product);
   }
 
-  removeProductFromCart(AllProductModel product) async {
-    if (cartProducts.containsKey(product) && cartProducts[product] == 1) {
-      cartProducts.removeWhere((key, value) => key == product);
+  removeProductFromCart(AddtoCart product) async {
+    final alldata = await FirebaseFirestore.instance
+        .collection("User cart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("cart Item")
+        .where("id", isEqualTo: product.id)
+        .get();
+    final countCheck = await FirebaseFirestore.instance
+        .collection("User cart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("cart Item")
+        .doc(product.id)
+        .get()
+        .then((value) => value.data()!["quantity"] == 1);
+    log(countCheck.toString());
+
+    if (alldata.docs.isNotEmpty && countCheck == true) {
+      await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .doc(product.id)
+          .delete();
     } else {
-      cartProducts[product] = cartProducts[product]! - 1;
+      await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .doc(product.id)
+          .update({"quantity": FieldValue.increment(-1)});
     }
-    log(cartProducts.toString());
-    Get.snackbar(
-      "Product Removed",
-      "You Have Removed the ${product.productName} to the cart",
-      snackPosition: SnackPosition.TOP,
-    );
+    getSubtotal(product);
   }
 
-  get subCount => cartProducts.entries
-      .map((product) => product.value)
-      .toList()
-      .reduce((value, element) => value + element)
-      .toString();
+  getSubtotal(AddtoCart product) async {
+    try {
+      final totalcount = await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .doc(product.id)
+          .get()
+          .then((value) => value.data()!["quantity"]);
+      final price = await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .doc(product.id)
+          .get()
+          .then((value) => value.data()!["price"]);
+      log("product count is ${totalcount.toString()}");
+      log("product price is ${price.toString()}");
+      int subtotal = price * totalcount;
 
-  get subtotal => cartProducts.entries
-      .map((product) => product.key.price! * product.value)
-      .toList();
+      await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .doc(product.id)
+          .update({"subTotal": subtotal});
+    } on FirebaseException catch (e) {
+      Get.snackbar("error", e.message.toString(),
+          backgroundColor: kred, colorText: kwhite);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
-  get total => cartProducts.entries
-      .map((product) => product.key.price! * product.value)
-      .toList()
-      .reduce((value, element) => value + element)
-      .toString();
+  void grandTotalAmount() async {
+
+   final itemsubtotal = await FirebaseFirestore.instance
+        .collection("User cart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("cart Item")
+        .get()
+        .then((value) => value.docs.map((e) => e.data()["subTotal"]).toList());
+        for (int element in itemsubtotal) {
+         allSubtotal.value  += element ;
+        }
+        log(allSubtotal.toString());
+    
+  }
+
+
+
 }

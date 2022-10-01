@@ -16,63 +16,68 @@ class UserProfileListTileWidgetCommen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: widthMedia * 0.9,
-        height: heightMedia * 0.18,
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: loginColor,
-              width: 0.8,
-            ),
-            borderRadius: circle30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 13.0, top: 13),
-                    child: Text(
-                      "Order ID :45897",
-                      style: googleNormalFont,
+    return InkWell(
+      onTap: () {
+        
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: widthMedia * 0.9,
+          height: heightMedia * 0.18,
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: loginColor,
+                width: 0.8,
+              ),
+              borderRadius: circle30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 13.0, top: 13),
+                      child: Text(
+                        "Order ID :45897",
+                        style: googleNormalFont,
+                      ),
                     ),
-                  ),
-                  orderStatusPending(),
-                ],
+                    orderStatusPending(),
+                  ],
+                ),
               ),
-            ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 0.8,
-            ),
-            ListTile(
-              leading: Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                    color: kred,
-                    borderRadius: circle20,
-                    image: const DecorationImage(
-                        image: AssetImage(
-                          burgerNewArrival1,
-                        ),
-                        fit: BoxFit.cover)),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0.8,
               ),
-              title: Text(
-                "Total item : 2",
-                style: normalfont15,
-              ),
-              subtitle: const Text("Total amount : 897"),
-              trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_forward_ios_outlined)),
-            )
-          ],
+              ListTile(
+                leading: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      color: kred,
+                      borderRadius: circle20,
+                      image: const DecorationImage(
+                          image: AssetImage(
+                            burgerNewArrival1,
+                          ),
+                          fit: BoxFit.cover)),
+                ),
+                title: Text(
+                  "Total item : 2",
+                  style: normalfont15,
+                ),
+                subtitle: const Text("Total amount : 897"),
+                trailing: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_forward_ios_outlined)),
+              )
+            ],
+          ),
         ),
       ),
     );

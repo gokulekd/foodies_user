@@ -4,6 +4,7 @@ class AddtoCart {
   final String id;
   final String name;
   final int price;
+  final int? subTotal;
   final int quantity;
 
   AddtoCart(
@@ -11,7 +12,9 @@ class AddtoCart {
         required this.id,
       required this.name,
       required this.price,
-     required  this.quantity});
+     required  this.quantity,
+     this.subTotal
+     });
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,6 +23,7 @@ class AddtoCart {
       "name": name,
       "price": price,
       "quantity": quantity,
+      "subTotal" :subTotal,
     };
   }
 
@@ -29,6 +33,8 @@ class AddtoCart {
         id: json["id"],
         name: json["name"],
         price: json["price"],
-        quantity: json["quantity"]);
+        quantity: json["quantity"],
+        subTotal:json ["subTotal"]
+        );
   }
 }

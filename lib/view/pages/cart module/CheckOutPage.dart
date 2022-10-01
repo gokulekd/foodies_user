@@ -1,19 +1,22 @@
-import 'dart:developer';
+// ignore_for_file: unnecessary_brace_in_string_interps
+
+
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies_user/constants/border_radious.dart';
-import 'package:foodies_user/constants/colors.dart';
-import 'package:foodies_user/constants/images.dart';
-import 'package:foodies_user/constants/sized_box.dart';
+import 'package:foodies_user/controller/order_traking_controller.dart';
+
+import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class CheckOutPage extends StatefulWidget {
   final amount;
-  final itemCount;
 
-  const CheckOutPage({Key? key, required this.amount, required this.itemCount})
-      : super(key: key);
+  const CheckOutPage({
+    Key? key,
+    required this.amount,
+  }) : super(key: key);
 
   @override
   State<CheckOutPage> createState() => _CheckOutPageState();
@@ -21,14 +24,14 @@ class CheckOutPage extends StatefulWidget {
 
 class _CheckOutPageState extends State<CheckOutPage> {
   Razorpay? razorpay;
-
+    final ordercontroller = Get.put(OrderTrackingController());
   @override
   void initState() {
     super.initState();
     razorpay = Razorpay();
-    razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSucsess);
-    razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFaliure);
-    razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
+    razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentSuccess);
+    razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handlePaymentSuccess);
   }
 
   @override
@@ -37,19 +40,25 @@ class _CheckOutPageState extends State<CheckOutPage> {
     razorpay!.clear();
   }
 
-  void handlerPaymentSucsess() {
-    log("Payment is succsess");
+  void _handlePaymentSuccess(PaymentSuccessResponse response)async {
+    Random objectname = Random();
+int orderNumber = objectname.nextInt(500000);
+   final paymentTransactionID =   response.orderId;
+  
+   print("order Number vanneeeeeeeeeee>>>>$orderNumber");
+      print("Payment id  Number vanneeeeeeeeeee>>>>$paymentTransactionID");
+    ordercontroller.orderUnderConfirmation(grandTotal: widget.amount as double,paymentTransactionID:paymentTransactionID,orderID: orderNumber );
+  
   }
 
-  void handlerErrorFaliure() {
-    log("Payment have error");
+  void _handlePaymentError(PaymentFailureResponse response) {
+      print("Payment failed");
   }
 
-  void handlerExternalWallet() {
-    log("Payment is from external wallet");
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet was selected
   }
-
-  void openCheckout()async {
+  void openCheckout() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
     var options = {
       "key": "rzp_test_4F11keT0DjZXl2",
@@ -65,51 +74,25 @@ class _CheckOutPageState extends State<CheckOutPage> {
       }
     };
     try {
+    
       razorpay!.open(options);
     } catch (e) {
-      log(">>>>Razorpay>>>error>>>$e");
+      print(">>>>Razorpay>>>error>>>$e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kwhite,
-        title: const Text(
-          "Payments",
-          style: TextStyle(color: kblack),
-        ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-          child: ListView(
-        children: [
-          sizeH10,
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Total Products : ${widget.itemCount}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Total Amount :  ₹ ${widget.amount}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(height: 200,
-          child:Image.network("https://images.newindianexpress.com/uploads/user/imagelibrary/2022/5/10/w900X450/Razorpay.jpg?w=400&dpr=2.6"),),
-          ElevatedButton(onPressed: ()async {
-            openCheckout();
-
-
-          }, child: const Text("Razorpay"))
-        ],
-      )),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          primary: const Color.fromARGB(255, 48, 116, 46),
+          fixedSize: const Size(150, 40),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+      onPressed: () async {
+        openCheckout();
+      },
+      child: const Text("Proceed to pay"),
     );
   }
 }

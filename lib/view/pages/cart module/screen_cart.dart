@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,16 @@ import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/constants/style.dart';
 import 'package:foodies_user/controller/cart_controller.dart';
+import 'package:foodies_user/controller/order_traking_controller.dart';
 import 'package:foodies_user/model/Selected_delivery_adress.dart';
+import 'package:foodies_user/model/add_to_cart.dart';
 import 'package:foodies_user/model/adressmodel.dart';
 import 'package:foodies_user/view/pages/cart%20module/CheckOutPage.dart';
 import 'package:foodies_user/view/pages/cart%20module/add_adress_page.dart';
 import 'package:foodies_user/view/pages/cart%20module/update_adress_page.dart';
+import 'package:foodies_user/view/pages/cart%20module/widgets/products_in_cart_widget.dart';
 import 'package:get/get.dart';
 import '../../widget/deliveryAdressViewWidget.dart';
-import 'widgets/products_in_cart_widget.dart';
 
 class ScreenCart extends StatelessWidget {
   const ScreenCart({Key? key}) : super(key: key);
@@ -26,6 +29,7 @@ class ScreenCart extends StatelessWidget {
     var widthMedia = MediaQuery.of(context).size.width;
     var heightMedia = MediaQuery.of(context).size.height;
     final controller = Get.put(CartController());
+
     return Scaffold(
       backgroundColor: KbargoundColor,
       appBar: AppBar(
@@ -39,47 +43,56 @@ class ScreenCart extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Obx(() => controller.cartProducts.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Center(
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => sizeH10,
-                        itemCount: controller.cartProducts.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ProductsInCartWidget(
-                              controller: controller,
-                              index: index,
-                              product:
-                                  controller.cartProducts.keys.toList()[index],
-                              quantity: controller.cartProducts.values
-                                  .toList()[index]);
-                        },
-                      ),
-                    ),
-                  )
-                : Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: const Center(
-                      child: Text("No items in the cart"),
-                    ),
-                  )),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Container(
-                  height: 160,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    borderRadius: circle30,
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("User cart")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .collection("cart Item")
+                  .snapshots(),
+              builder: (context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.separated(
+                    separatorBuilder: (context, index) => sizeH10,
+                    itemCount: snapshot.data!.docs.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ProductsInCartWidget(
+                        controller: controller,
+                        product: AddtoCart.fromJson(
+                            snapshot.data!.docs[index].data()),
+                      );
+                    },
+                  );
+                }
+                return const SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: Center(
+                    child: Text("No items in the cart"),
                   ),
-                  child: ClipRRect(
-                    borderRadius: circle30,
-                    child: Image.asset(
-                      burgerOffer3,
-                      fit: BoxFit.cover,
+                );
+              },
+            ),
+            InkWell(
+              onTap: () {
+         
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Container(
+                    height: 160,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: circle30,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: circle30,
+                      child: Image.asset(
+                        burgerOffer3,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -169,8 +182,21 @@ class ScreenCart extends StatelessWidget {
                 }
               },
             ),
-            Obx(() => controller.cartProducts.isNotEmpty
-                ? Padding(
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("User cart")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .collection("cart Item")
+                  .snapshots(),
+              builder: (context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.hasData) {
+                  num grandTotal = 0;
+                  for (var i = 0; i < snapshot.data!.docs.length; i++) {
+                    grandTotal =
+                        grandTotal + snapshot.data!.docs[i]["subTotal"];
+                  }
+                  return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
@@ -179,39 +205,19 @@ class ScreenCart extends StatelessWidget {
                         borderRadius: circle20,
                       ),
                       child: ListTile(
-                        title: Text(
-                          controller.cartProducts.isNotEmpty
-                              ? "Total amount : ${controller.total}"
-                              : "Total amount : 0",
-                          style: googleNormalFont,
-                        ),
-                        subtitle: Text(
-                          controller.cartProducts.isNotEmpty
-                              ? "total items : ${controller.subCount}"
-                              : "total items : 0 ",
-                          style: googlefontBlackFont15,
-                        ),
-                        trailing: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 48, 116, 46),
-                              fixedSize: const Size(150, 40),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CheckOutPage(
-                                      amount: controller.total,
-                                      itemCount: controller.subCount),
-                                ));
-                          },
-                          child: const Text("Proceed to pay"),
-                        ), 
-                      ),
+                          title: Text(
+                            "Total amount : $grandTotal",
+                            style: googleNormalFont,
+                          ),
+                          trailing: CheckOutPage(
+                              amount: grandTotal.toDouble() * 100)),
                     ),
-                  )
-                : const SizedBox())
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -316,7 +322,10 @@ adressSelectorWidget() {
     backgroundColor: Colors.white,
     elevation: 0,
     shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30.0),
+        topRight: Radius.circular(30.0),
+      ),
+    ),
   );
 }
