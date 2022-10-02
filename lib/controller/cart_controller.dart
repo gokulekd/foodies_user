@@ -7,17 +7,15 @@ import 'package:foodies_user/model/add_to_cart.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
-      RxInt allSubtotal = 0.obs;
-  
+  RxInt allSubtotal = 0.obs;
+
   @override
   void onInit() {
-       grandTotalAmount();
+    grandTotalAmount();
     super.onInit();
-
   }
 
   addProductToCart(AddtoCart product) async {
-    var data = product.toJson();
     final alldata = await FirebaseFirestore.instance
         .collection("User cart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -39,7 +37,7 @@ class CartController extends GetxController {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("cart Item")
             .doc(product.id)
-            .set(data);
+            .set(product.toMap());
       }
     } on FirebaseException catch (e) {
       Get.snackbar("error", e.message.toString(),
@@ -47,8 +45,6 @@ class CartController extends GetxController {
     } catch (e) {
       log(">>>>>Product add to cart Error>>>>${e.toString()}");
     }
-
-    log(data.toString());
 
     getSubtotal(product);
   }
@@ -122,20 +118,17 @@ class CartController extends GetxController {
   }
 
   void grandTotalAmount() async {
-
-   final itemsubtotal = await FirebaseFirestore.instance
+    final itemsubtotal = await FirebaseFirestore.instance
         .collection("User cart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("cart Item")
-        .get()
-        .then((value) => value.docs.map((e) => e.data()["subTotal"]).toList());
-        for (int element in itemsubtotal) {
-         allSubtotal.value  += element ;
-        }
-        log(allSubtotal.toString());
-    
+        .get();
+
+
+        // .then((value) => value.docs.map((e) => e.data()["subTotal"]).toList());
+    for (int element in itemsubtotal) {
+      allSubtotal.value += element;
+    }
+    log(allSubtotal.toString());
   }
-
-
-
 }

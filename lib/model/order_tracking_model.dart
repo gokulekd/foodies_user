@@ -1,28 +1,14 @@
-
-import 'package:meta/meta.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-OrderTrackingModel orderTrackingModelFromJson(String str) => OrderTrackingModel.fromJson(json.decode(str));
+import 'package:flutter/foundation.dart';
 
-String orderTrackingModelToJson(OrderTrackingModel data) => json.encode(data.toJson());
+import 'package:foodies_user/model/add_to_cart.dart';
+import 'package:foodies_user/model/user_model.dart';
 
-class OrderTrackingModel {
-    OrderTrackingModel({
-        required this.firebaseDocumentId,
-        required this.orderDetails,
-        required this.orderConfirmed,
-        required this.orderPreparing,
-        required this.orderDelivered,
-        required this.orderRejected,
-        required this.grandTotalAmount,
-        required this.paymentTransactionId,
-        required this.orderId,
-        required this.timeOfOrder,
-        required this.customerData,
-    });
-
-    String firebaseDocumentId;
-    List<OrderDetail> orderDetails;
+class OderTrackingDetails {
+      String firebaseDocumentId;
+      List<AddtoCart> cartData; 
     bool orderConfirmed;
     bool orderPreparing;
     bool orderDelivered;
@@ -30,102 +16,121 @@ class OrderTrackingModel {
     int grandTotalAmount;
     String paymentTransactionId;
     String orderId;
-    String timeOfOrder;
-    CustomerData customerData;
+    DateTime timeOfOrder;
+    UserModel user;
+  OderTrackingDetails({
+    required this.firebaseDocumentId,
+    required this.cartData,
+    required this.orderConfirmed,
+    required this.orderPreparing,
+    required this.orderDelivered,
+    required this.orderRejected,
+    required this.grandTotalAmount,
+    required this.paymentTransactionId,
+    required this.orderId,
+    required this.timeOfOrder,
+    required this.user,
+  });
 
-    factory OrderTrackingModel.fromJson(Map<String, dynamic> json) => OrderTrackingModel(
-        firebaseDocumentId: json["firebaseDocumentID"],
-        orderDetails: List<OrderDetail>.from(json["orderDetails"].map((x) => OrderDetail.fromJson(x))),
-        orderConfirmed: json["orderConfirmed"],
-        orderPreparing: json["orderPreparing "],
-        orderDelivered: json["orderDelivered"],
-        orderRejected: json["orderRejected"],
-        grandTotalAmount: json["grandTotalAmount"],
-        paymentTransactionId: json["PaymentTransaction ID"],
-        orderId: json["orderID"],
-        timeOfOrder: json["timeOfOrder"],
-        customerData: CustomerData.fromJson(json["customerData"]),
+  OderTrackingDetails copyWith({
+    String? firebaseDocumentId,
+    List<AddtoCart>? cartData,
+    bool? orderConfirmed,
+    bool? orderPreparing,
+    bool? orderDelivered,
+    bool? orderRejected,
+    int? grandTotalAmount,
+    String? paymentTransactionId,
+    String? orderId,
+    DateTime? timeOfOrder,
+    UserModel? user,
+  }) {
+    return OderTrackingDetails(
+      firebaseDocumentId: firebaseDocumentId ?? this.firebaseDocumentId,
+      cartData: cartData ?? this.cartData,
+      orderConfirmed: orderConfirmed ?? this.orderConfirmed,
+      orderPreparing: orderPreparing ?? this.orderPreparing,
+      orderDelivered: orderDelivered ?? this.orderDelivered,
+      orderRejected: orderRejected ?? this.orderRejected,
+      grandTotalAmount: grandTotalAmount ?? this.grandTotalAmount,
+      paymentTransactionId: paymentTransactionId ?? this.paymentTransactionId,
+      orderId: orderId ?? this.orderId,
+      timeOfOrder: timeOfOrder ?? this.timeOfOrder,
+      user: user ?? this.user,
     );
+  }
 
-    Map<String, dynamic> toJson() => {
-        "firebaseDocumentID": firebaseDocumentId,
-        "orderDetails": List<dynamic>.from(orderDetails.map((x) => x.toJson())),
-        "orderConfirmed": orderConfirmed,
-        "orderPreparing ": orderPreparing,
-        "orderDelivered": orderDelivered,
-        "orderRejected": orderRejected,
-        "grandTotalAmount": grandTotalAmount,
-        "PaymentTransaction ID": paymentTransactionId,
-        "orderID": orderId,
-        "timeOfOrder": timeOfOrder,
-        "customerData": customerData.toJson(),
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'firebaseDocumentId': firebaseDocumentId,
+      'cartData': cartData.map((x) => x.toMap()).toList(),
+      'orderConfirmed': orderConfirmed,
+      'orderPreparing': orderPreparing,
+      'orderDelivered': orderDelivered,
+      'orderRejected': orderRejected,
+      'grandTotalAmount': grandTotalAmount,
+      'paymentTransactionId': paymentTransactionId,
+      'orderId': orderId,
+      'timeOfOrder': timeOfOrder.millisecondsSinceEpoch,
+      'user': user.toMap(),
     };
-}
+  }
 
-class CustomerData {
-    CustomerData({
-        required this.userName,
-        required this.userUid,
-        required this.name,
-        required this.phoneNumber,
-        required this.image,
-    });
-
-    String userName;
-    String userUid;
-    String name;
-    String phoneNumber;
-    String image;
-
-    factory CustomerData.fromJson(Map<String, dynamic> json) => CustomerData(
-        userName: json["userName"],
-        userUid: json["userUid"],
-        name: json["name"],
-        phoneNumber: json["phoneNumber"],
-        image: json["image"],
+  factory OderTrackingDetails.fromMap(Map<String, dynamic> map) {
+    return OderTrackingDetails(
+      firebaseDocumentId: map['firebaseDocumentId'] as String,
+      cartData: List<AddtoCart>.from((map['cartData'] as List<int>).map<AddtoCart>((x) => AddtoCart.fromMap(x as Map<String,dynamic>),),),
+      orderConfirmed: map['orderConfirmed'] as bool,
+      orderPreparing: map['orderPreparing'] as bool,
+      orderDelivered: map['orderDelivered'] as bool,
+      orderRejected: map['orderRejected'] as bool,
+      grandTotalAmount: map['grandTotalAmount'] as int,
+      paymentTransactionId: map['paymentTransactionId'] as String,
+      orderId: map['orderId'] as String,
+      timeOfOrder: DateTime.fromMillisecondsSinceEpoch(map['timeOfOrder'] as int),
+      user: UserModel.fromMap(map['user'] as Map<String,dynamic>),
     );
+  }
 
-    Map<String, dynamic> toJson() => {
-        "userName": userName,
-        "userUid": userUid,
-        "name": name,
-        "phoneNumber": phoneNumber,
-        "image": image,
-    };
-}
+  String toJson() => json.encode(toMap());
 
-class OrderDetail {
-    OrderDetail({
-        required this.image,
-        required this.id,
-        required this.name,
-        required this.price,
-        required this.quantity,
-        required this.subTotal,
-    });
+  factory OderTrackingDetails.fromJson(String source) => OderTrackingDetails.fromMap(json.decode(source) as Map<String, dynamic>);
 
-    String image;
-    String id;
-    String name;
-    int price;
-    int quantity;
-    int subTotal;
+  @override
+  String toString() {
+    return 'OderTrackingDetails(firebaseDocumentId: $firebaseDocumentId, cartData: $cartData, orderConfirmed: $orderConfirmed, orderPreparing: $orderPreparing, orderDelivered: $orderDelivered, orderRejected: $orderRejected, grandTotalAmount: $grandTotalAmount, paymentTransactionId: $paymentTransactionId, orderId: $orderId, timeOfOrder: $timeOfOrder, user: $user)';
+  }
 
-    factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
-        image: json["image"],
-        id: json["id"],
-        name: json["name"],
-        price: json["price"],
-        quantity: json["quantity"],
-        subTotal: json["subTotal"],
-    );
+  @override
+  bool operator ==(covariant OderTrackingDetails other) {
+    if (identical(this, other)) return true;
+  
+    return 
+      other.firebaseDocumentId == firebaseDocumentId &&
+      listEquals(other.cartData, cartData) &&
+      other.orderConfirmed == orderConfirmed &&
+      other.orderPreparing == orderPreparing &&
+      other.orderDelivered == orderDelivered &&
+      other.orderRejected == orderRejected &&
+      other.grandTotalAmount == grandTotalAmount &&
+      other.paymentTransactionId == paymentTransactionId &&
+      other.orderId == orderId &&
+      other.timeOfOrder == timeOfOrder &&
+      other.user == user;
+  }
 
-    Map<String, dynamic> toJson() => {
-        "image": image,
-        "id": id,
-        "name": name,
-        "price": price,
-        "quantity": quantity,
-        "subTotal": subTotal,
-    };
+  @override
+  int get hashCode {
+    return firebaseDocumentId.hashCode ^
+      cartData.hashCode ^
+      orderConfirmed.hashCode ^
+      orderPreparing.hashCode ^
+      orderDelivered.hashCode ^
+      orderRejected.hashCode ^
+      grandTotalAmount.hashCode ^
+      paymentTransactionId.hashCode ^
+      orderId.hashCode ^
+      timeOfOrder.hashCode ^
+      user.hashCode;
+  }
 }

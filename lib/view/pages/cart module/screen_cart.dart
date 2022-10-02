@@ -10,7 +10,6 @@ import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/constants/style.dart';
 import 'package:foodies_user/controller/cart_controller.dart';
-import 'package:foodies_user/controller/order_traking_controller.dart';
 import 'package:foodies_user/model/Selected_delivery_adress.dart';
 import 'package:foodies_user/model/add_to_cart.dart';
 import 'package:foodies_user/model/adressmodel.dart';
@@ -57,10 +56,13 @@ class ScreenCart extends StatelessWidget {
                     itemCount: snapshot.data!.docs.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                   log(AddtoCart.fromJson(
+                            snapshot.data!.docs[index].data().toString()).toString());
+                            // return Container();
                       return ProductsInCartWidget(
                         controller: controller,
                         product: AddtoCart.fromJson(
-                            snapshot.data!.docs[index].data()),
+                            snapshot.data!.docs[index].data().toString()),
                       );
                     },
                   );
@@ -75,9 +77,7 @@ class ScreenCart extends StatelessWidget {
               },
             ),
             InkWell(
-              onTap: () {
-         
-              },
+              onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(

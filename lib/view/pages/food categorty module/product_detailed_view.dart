@@ -168,7 +168,7 @@ class ProductDetailedViewPage extends StatelessWidget {
                                         id: value.id!,
                                         name: value.productName!,
                                         price: value.price!,
-                                        image: value.image!,quantity: 1);
+                                        image: value.image.toString(),quantity: 1,);
                                     controller.addProductToCart(model);
                                   },
                                   style: ElevatedButton.styleFrom(
