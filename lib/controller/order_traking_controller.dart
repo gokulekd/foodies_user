@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:foodies_user/view/pages/razorpay/after_payment_sucsess.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,9 @@ class OrderTrackingController extends GetxController {
         .collection("cart Item")
         .get()
         .then((value) => value.docs.map((e) => e.data()).toList());
+
+
+   //     OrderTrackingModel(firebaseDocumentId: orderID, orderDetails: orderde, orderConfirmed: orderConfirmed, orderPreparing: orderPreparing, orderDelivered: orderDelivered, orderRejected: orderRejected, grandTotalAmount: grandTotalAmount, paymentTransactionId: paymentTransactionId, orderId: orderId, timeOfOrder: timeOfOrder, customerData: customerData)
     await FirebaseFirestore.instance
         .collection("order Tracking")
         .doc(FirebaseAuth.instance.currentUser!.uid)

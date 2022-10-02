@@ -21,31 +21,23 @@ class PendingOrdersDetailedViewPage extends StatelessWidget {
                 .collection("order Tracking")
                 .doc(FirebaseAuth.instance.currentUser!.uid)
                 .collection("data")
-                .snapshots()
-                .map((event) => event.docs.map((e) => e.data())),
+                .snapshots(),
             builder: (context,
-                AsyncSnapshot<Iterable<Map<String, dynamic>>> snapshot) {
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              final value = snapshot.data!.docs
+                  .map((e) => e.data()["order rejected"] == false)
+                  .toList();
 
-         //        final value =  snapshot.data!.where((element) => element.)
-              // if (snapshot.hasData && snapshot.data != null) {
-              //   final data = snapshot.data!.docs
-              //       .map((e) => e.data()["order rejected"])
-              //       .any((element) => element);
-              //       final dataLenght = snapshot.data!.docs.map((e) => e.data()["order rejected"] == false).length;
               if (snapshot.hasData) {
-                final data = snapshot.data!
-                    .map((e) => e.containsKey("order rejected"))
-                    .toList();
-                    log(data.length.toString());
-                if (data.contains(true)) {
-                  return ListView.builder(
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      return UserProfileListTileWidgetCommen(
-                          widthMedia: widthMedia, heightMedia: heightMedia);
-                    },
-                  );
-                }
+                return ListView.builder(
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    return value[index] == true
+                        ? UserProfileListTileWidgetCommen(
+                            widthMedia: widthMedia, heightMedia: heightMedia)
+                        : const SizedBox();
+                  },
+                );
               }
 
               return const Text("No data");
