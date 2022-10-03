@@ -118,17 +118,20 @@ class CartController extends GetxController {
   }
 
   void grandTotalAmount() async {
-    final itemsubtotal = await FirebaseFirestore.instance
+    final QuerySnapshot<Map<String, dynamic>> value = await FirebaseFirestore.instance
         .collection("User cart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("cart Item")
         .get();
+if (value.docs.isNotEmpty) {
+    final itemSubtotal = value.docs.map((e) => e.data()["subTotal"]).toList();
 
-
-        // .then((value) => value.docs.map((e) => e.data()["subTotal"]).toList());
-    for (int element in itemsubtotal) {
+    for (int element in itemSubtotal) {
       allSubtotal.value += element;
     }
-    log(allSubtotal.toString());
+   
   }
+}
+
+
 }

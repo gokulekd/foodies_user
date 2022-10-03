@@ -3,26 +3,25 @@ import 'dart:convert';
 
 class UserModel {
 
-  String email;
+  String? email;
   String uid;
-  String name;
-  int phoneNumber;
-  String image;
+  String? name;
+  String? phoneNumber;
+  String? image;
   UserModel({
-    required this.email,
+    this.email,
     required this.uid,
-    required this.name,
-    required this.phoneNumber,
-    required this.image,
+    this.name,
+    this.phoneNumber,
+    this.image,
   });
-
 
 
   UserModel copyWith({
     String? email,
     String? uid,
     String? name,
-    int? phoneNumber,
+    String? phoneNumber,
     String? image,
   }) {
     return UserModel(
@@ -46,11 +45,11 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      email: map['email'] as String,
+      email: map['email'] != null ? map['email'] as String : null,
       uid: map['uid'] as String,
-      name: map['name'] as String,
-      phoneNumber: map['phoneNumber'] as int,
-      image: map['image'] as String,
+      name: map['name'] != null ? map['name'] as String : null,
+      phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
+      image: map['image'] != null ? map['image'] as String : null,
     );
   }
 

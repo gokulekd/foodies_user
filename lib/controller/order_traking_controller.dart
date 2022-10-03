@@ -14,14 +14,14 @@ class OrderTrackingController extends GetxController {
   orderUnderConfirmation(
       {required grandTotal,
       required paymentTransactionID,
-      required orderID}) async {
+      required String orderID}) async {
     final user = FirebaseAuth.instance.currentUser!;
 
     final userdata = UserModel(
         email: user.email!,
         image: user.photoURL!,
         name: user.displayName!,
-        phoneNumber: int.parse(user.phoneNumber!),
+        phoneNumber: user.phoneNumber!  ,
         uid: user.uid);
 
     final cart = await FirebaseFirestore.instance
@@ -40,7 +40,7 @@ class OrderTrackingController extends GetxController {
         orderRejected: false,
         grandTotalAmount: grandTotal,
         paymentTransactionId: paymentTransactionID,
-        orderId: orderID,
+        orderId: orderID.toString(),
         timeOfOrder: DateTime.now(),
         user: userdata,
         cartData: cart);
@@ -78,4 +78,8 @@ class OrderTrackingController extends GetxController {
           ));
     });
   }
+
+
+
+
 }

@@ -42,12 +42,12 @@ class _CheckOutPageState extends State<CheckOutPage> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response)async {
     
-//     Random objectname = Random();
-// int orderNumber = objectname.nextInt(500000);
+    Random objectname = Random();
+final orderNumber = objectname.nextInt(500000).toString();
    final paymentTransactionID =   response.paymentId;
   
       print("Payment id  Number vanneeeeeeeeeee>>>>$paymentTransactionID");
-    ordercontroller.orderUnderConfirmation(grandTotal: widget.amount as double,paymentTransactionID:paymentTransactionID,orderID: response.orderId );
+    ordercontroller.orderUnderConfirmation(grandTotal: widget.amount as double,paymentTransactionID:paymentTransactionID,orderID: orderNumber );
   
   }
 

@@ -1,25 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/style.dart';
+import 'package:foodies_user/model/order_tracking_model.dart';
+import 'package:intl/intl.dart';
 
 class UserProfileListTileWidgetCommen extends StatelessWidget {
-  const UserProfileListTileWidgetCommen({
+  UserProfileListTileWidgetCommen({
     Key? key,
     required this.widthMedia,
     required this.heightMedia,
+    required this.data,
   }) : super(key: key);
 
   final double widthMedia;
   final double heightMedia;
+  final OderTrackingDetails data;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        
-      },
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -42,7 +46,7 @@ class UserProfileListTileWidgetCommen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 13.0, top: 13),
                       child: Text(
-                        "Order ID :45897",
+                        "Order ID :${data.orderId}",
                         style: googleNormalFont,
                       ),
                     ),
@@ -68,10 +72,10 @@ class UserProfileListTileWidgetCommen extends StatelessWidget {
                           fit: BoxFit.cover)),
                 ),
                 title: Text(
-                  "Total item : 2",
+                  DateFormat.jm().format(data.timeOfOrder),
                   style: normalfont15,
                 ),
-                subtitle: const Text("Total amount : 897"),
+                subtitle: Text("Total amount : ${data.grandTotalAmount / 100}"),
                 trailing: IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.arrow_forward_ios_outlined)),
@@ -84,12 +88,14 @@ class UserProfileListTileWidgetCommen extends StatelessWidget {
   }
 }
 
+
 Padding orderStatusPreparing() {
   return Padding(
     padding: const EdgeInsets.only(top: 13, right: 2),
     child: Container(
       padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(borderRadius: circle10, color: Color.fromARGB(255, 158, 175, 76)),
+      decoration: BoxDecoration(
+          borderRadius: circle10, color: Color.fromARGB(255, 158, 175, 76)),
       height: 20,
       width: 100,
       child: const Text(
@@ -106,7 +112,8 @@ Padding orderStatusPending() {
     padding: const EdgeInsets.only(top: 13, right: 2),
     child: Container(
       padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(borderRadius: circle10, color: Color.fromARGB(255, 175, 114, 76)),
+      decoration: BoxDecoration(
+          borderRadius: circle10, color: Color.fromARGB(255, 175, 114, 76)),
       height: 20,
       width: 100,
       child: const Text(
@@ -123,7 +130,8 @@ Padding orderStatusConfirmed() {
     padding: const EdgeInsets.only(top: 13, right: 2),
     child: Container(
       padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(borderRadius: circle10, color: Color.fromARGB(255, 71, 151, 151)),
+      decoration: BoxDecoration(
+          borderRadius: circle10, color: Color.fromARGB(255, 71, 151, 151)),
       height: 20,
       width: 100,
       child: const Text(
@@ -152,13 +160,13 @@ Padding orderStatusDeliverd() {
   );
 }
 
-
 Padding orderStatusCancelled() {
   return Padding(
     padding: const EdgeInsets.only(top: 13, right: 2),
     child: Container(
       padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(borderRadius: circle10, color: Color.fromARGB(255, 168, 65, 59)),
+      decoration: BoxDecoration(
+          borderRadius: circle10, color: Color.fromARGB(255, 168, 65, 59)),
       height: 20,
       width: 100,
       child: const Text(
@@ -169,4 +177,3 @@ Padding orderStatusCancelled() {
     ),
   );
 }
-

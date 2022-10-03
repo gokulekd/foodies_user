@@ -13,7 +13,7 @@ class OderTrackingDetails {
     bool orderPreparing;
     bool orderDelivered;
     bool orderRejected;
-    int grandTotalAmount;
+    double grandTotalAmount;
     String paymentTransactionId;
     String orderId;
     DateTime timeOfOrder;
@@ -52,7 +52,7 @@ class OderTrackingDetails {
       orderPreparing: orderPreparing ?? this.orderPreparing,
       orderDelivered: orderDelivered ?? this.orderDelivered,
       orderRejected: orderRejected ?? this.orderRejected,
-      grandTotalAmount: grandTotalAmount ?? this.grandTotalAmount,
+      grandTotalAmount: grandTotalAmount!.toDouble(),
       paymentTransactionId: paymentTransactionId ?? this.paymentTransactionId,
       orderId: orderId ?? this.orderId,
       timeOfOrder: timeOfOrder ?? this.timeOfOrder,
@@ -79,12 +79,12 @@ class OderTrackingDetails {
   factory OderTrackingDetails.fromMap(Map<String, dynamic> map) {
     return OderTrackingDetails(
       firebaseDocumentId: map['firebaseDocumentId'] as String,
-      cartData: List<AddtoCart>.from((map['cartData'] as List<int>).map<AddtoCart>((x) => AddtoCart.fromMap(x as Map<String,dynamic>),),),
+      cartData: List<AddtoCart>.from((map['cartData'] as List).map<AddtoCart>((x) => AddtoCart.fromMap(x as Map<String,dynamic>),),),
       orderConfirmed: map['orderConfirmed'] as bool,
       orderPreparing: map['orderPreparing'] as bool,
       orderDelivered: map['orderDelivered'] as bool,
       orderRejected: map['orderRejected'] as bool,
-      grandTotalAmount: map['grandTotalAmount'] as int,
+      grandTotalAmount: map['grandTotalAmount'] as double,
       paymentTransactionId: map['paymentTransactionId'] as String,
       orderId: map['orderId'] as String,
       timeOfOrder: DateTime.fromMillisecondsSinceEpoch(map['timeOfOrder'] as int),

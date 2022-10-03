@@ -56,13 +56,10 @@ class ScreenCart extends StatelessWidget {
                     itemCount: snapshot.data!.docs.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                   log(AddtoCart.fromJson(
-                            snapshot.data!.docs[index].data().toString()).toString());
-                            // return Container();
                       return ProductsInCartWidget(
                         controller: controller,
-                        product: AddtoCart.fromJson(
-                            snapshot.data!.docs[index].data().toString()),
+                        product: AddtoCart.fromMap(
+                            snapshot.data!.docs[index].data()),
                       );
                     },
                   );
@@ -191,28 +188,30 @@ class ScreenCart extends StatelessWidget {
               builder: (context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.hasData) {
-                  num grandTotal = 0;
+                  int grandTotal = 0;
                   for (var i = 0; i < snapshot.data!.docs.length; i++) {
                     grandTotal =
-                        grandTotal + snapshot.data!.docs[i]["subTotal"];
+                        snapshot.data!.docs[i]["subTotal"] + grandTotal;
                   }
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: kwhite,
-                        border: Border.all(color: loginColor, width: 0.5),
-                        borderRadius: circle20,
-                      ),
-                      child: ListTile(
-                          title: Text(
-                            "Total amount : $grandTotal",
-                            style: googleNormalFont,
+                  return grandTotal != 0
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: kwhite,
+                              border: Border.all(color: loginColor, width: 0.5),
+                              borderRadius: circle20,
+                            ),
+                            child: ListTile(
+                                title: Text(
+                                  "Total amount : $grandTotal",
+                                  style: googleNormalFont,
+                                ),
+                                trailing: CheckOutPage(
+                                    amount: grandTotal.toDouble() * 100)),
                           ),
-                          trailing: CheckOutPage(
-                              amount: grandTotal.toDouble() * 100)),
-                    ),
-                  );
+                        )
+                      : const SizedBox();
                 } else {
                   return const SizedBox();
                 }

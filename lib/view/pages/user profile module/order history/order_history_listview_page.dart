@@ -1,15 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_user/model/order_tracking_model.dart';
 import 'package:foodies_user/view/pages/user%20profile%20module/widgets/userprofileListtile_widget_commen.dart';
 import 'package:foodies_user/view/widget/white_app_bar_commen.dart';
 
-class OrderHistoryListViewPage extends StatefulWidget {
+class OrderHistoryListViewPage extends StatelessWidget {
   const OrderHistoryListViewPage({Key? key}) : super(key: key);
-
-  @override
-  State<OrderHistoryListViewPage> createState() => _OrderHistoryListViewPageState();
-}
-
-class _OrderHistoryListViewPageState extends State<OrderHistoryListViewPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +14,38 @@ class _OrderHistoryListViewPageState extends State<OrderHistoryListViewPage> {
     double heightMedia = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: whiteCustomAppBar("Order History"),
-      body: ListView(
-        children: [
-          UserProfileListTileWidgetCommen(
-              widthMedia: widthMedia, heightMedia: heightMedia),
-          UserProfileListTileWidgetCommen(
-              widthMedia: widthMedia, heightMedia: heightMedia),
-          UserProfileListTileWidgetCommen(
-              widthMedia: widthMedia, heightMedia: heightMedia)
-        ],
+      body: SafeArea(
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection("order Tracking")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection("data")
+              .snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.hasData && snapshot.data != null) {
+              final value = snapshot.data!.docs
+                  .map((e) => e.data()["orderRejected"] == true)
+                  .toList();
+              return ListView.builder(
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  final data = OderTrackingDetails.fromMap(
+                    snapshot.data!.docs[index].data(),
+                  );
+                  return value[index] == true
+                      ? UserProfileListTileWidgetCommen(
+                          data: data,
+                          widthMedia: widthMedia,
+                          heightMedia: heightMedia)
+                      : const SizedBox();
+                },
+              );
+            }
+            return const Text("No data");
+          },
+        ),
       ),
     );
   }
 }
-
-
-
