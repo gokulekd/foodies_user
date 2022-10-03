@@ -1,17 +1,16 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
-
 
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/controller/order_traking_controller.dart';
 
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class CheckOutPage extends StatefulWidget {
-  final amount;
+  final num amount;
 
   const CheckOutPage({
     Key? key,
@@ -46,15 +45,17 @@ class _CheckOutPageState extends State<CheckOutPage> {
 final orderNumber = objectname.nextInt(500000).toString();
    final paymentTransactionID =   response.paymentId;
   
-      print("Payment id  Number vanneeeeeeeeeee>>>>$paymentTransactionID");
+     
     ordercontroller.orderUnderConfirmation(grandTotal: widget.amount as double,paymentTransactionID:paymentTransactionID,orderID: orderNumber );
   
   }
 
+  // ignore: unused_element
   void _handlePaymentError(PaymentFailureResponse response) {
-      print("Payment failed");
+      Get.snackbar("message", "payment failed",backgroundColor: kred,colorText: kwhite);
   }
 
+  // ignore: unused_element
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet was selected
   }
@@ -76,8 +77,9 @@ final orderNumber = objectname.nextInt(500000).toString();
     try {
     
       razorpay!.open(options);
+    // ignore: empty_catches
     } catch (e) {
-      print(">>>>Razorpay>>>error>>>$e");
+   
     }
   }
 

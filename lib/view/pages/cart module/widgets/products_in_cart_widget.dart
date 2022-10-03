@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 
 import 'package:foodies_user/controller/cart_controller.dart';
@@ -37,7 +36,7 @@ class ProductsInCartWidget extends StatelessWidget {
                     controller.getSubtotal(product);
                     controller.addProductToCart(product);
                   },
-                  icon: Icon(Icons.add)),
+                  icon: const Icon(Icons.add)),
               Text(product.quantity.toString()),
               IconButton(
                   onPressed: () {
@@ -47,7 +46,7 @@ class ProductsInCartWidget extends StatelessWidget {
                   icon: const Icon(Icons.remove))
             ],
           ),
-           Text("subTotal : ${ product.subTotal!}"),
+          Text("subTotal : ${product.subTotal!}"),
         ],
       ),
     );

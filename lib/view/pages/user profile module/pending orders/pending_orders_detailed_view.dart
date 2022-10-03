@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +41,8 @@ class PendingOrdersDetailedViewPage extends StatelessWidget {
                         ? UserProfileListTileWidgetCommen(
                             data: data,
                             widthMedia: widthMedia,
-                            heightMedia: heightMedia)
+                            heightMedia: heightMedia,index: index,
+                            )
                         : const SizedBox();
                   },
                 );

@@ -6,8 +6,8 @@ import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/view/widget/BurgerOfferWidget.dart';
 import 'package:foodies_user/view/widget/CategoriesWidgetFoodspage.dart';
-import 'package:foodies_user/view/widget/CustomAppBar.dart';
 import 'package:foodies_user/view/widget/categories_title.dart';
+import 'package:foodies_user/view/widget/white_app_bar_commen.dart';
 
 class Screenfoods extends StatelessWidget {
   const Screenfoods({Key? key}) : super(key: key);
@@ -15,16 +15,12 @@ class Screenfoods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KbargoundColor,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(80),
-        child: HomepageCustomAppBar(),
-      ),
+      backgroundColor: kbargoundColor,
+      appBar: whiteCustomAppBar("Food categories"),
       body: SafeArea(
           child: ListView(
         children: [
           sizeH10,
-
           CategoryTitle(title: "offers", iconName: iconoffers),
           const BurgerOfferWidget(),
           CategoryTitle(title: "categories", iconName: iconFood),
@@ -78,7 +74,6 @@ class Screenfoods extends StatelessWidget {
               );
             },
           )
-         
         ],
       )),
     );

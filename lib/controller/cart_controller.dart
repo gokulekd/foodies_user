@@ -39,6 +39,8 @@ class CartController extends GetxController {
             .doc(product.id)
             .set(product.toMap());
       }
+      Get.snackbar("Message", "Product added to cart",
+          backgroundColor: kgreen, colorText: kwhite);
     } on FirebaseException catch (e) {
       Get.snackbar("error", e.message.toString(),
           backgroundColor: kred, colorText: kwhite);
@@ -50,37 +52,47 @@ class CartController extends GetxController {
   }
 
   removeProductFromCart(AddtoCart product) async {
-    final alldata = await FirebaseFirestore.instance
-        .collection("User cart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("cart Item")
-        .where("id", isEqualTo: product.id)
-        .get();
-    final countCheck = await FirebaseFirestore.instance
-        .collection("User cart")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("cart Item")
-        .doc(product.id)
-        .get()
-        .then((value) => value.data()!["quantity"] == 1);
-    log(countCheck.toString());
+    try {
+      final alldata = await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .where("id", isEqualTo: product.id)
+          .get();
+      final countCheck = await FirebaseFirestore.instance
+          .collection("User cart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("cart Item")
+          .doc(product.id)
+          .get()
+          .then((value) => value.data()!["quantity"] == 1);
+      log(countCheck.toString());
 
-    if (alldata.docs.isNotEmpty && countCheck == true) {
-      await FirebaseFirestore.instance
-          .collection("User cart")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("cart Item")
-          .doc(product.id)
-          .delete();
-    } else {
-      await FirebaseFirestore.instance
-          .collection("User cart")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("cart Item")
-          .doc(product.id)
-          .update({"quantity": FieldValue.increment(-1)});
+      if (alldata.docs.isNotEmpty && countCheck == true) {
+        await FirebaseFirestore.instance
+            .collection("User cart")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("cart Item")
+            .doc(product.id)
+            .delete();
+      } else {
+        await FirebaseFirestore.instance
+            .collection("User cart")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("cart Item")
+            .doc(product.id)
+            .update({"quantity": FieldValue.increment(-1)});
+      }
+
+      getSubtotal(product);
+      Get.snackbar("Message", "Product removed from cart",
+          backgroundColor: kred, colorText: kwhite);
+    } on FirebaseException catch (e) {
+      Get.snackbar("error", e.message.toString(),
+          backgroundColor: kred, colorText: kwhite);
+    } catch (e) {
+      log(e.toString());
     }
-    getSubtotal(product);
   }
 
   getSubtotal(AddtoCart product) async {
@@ -118,20 +130,18 @@ class CartController extends GetxController {
   }
 
   void grandTotalAmount() async {
-    final QuerySnapshot<Map<String, dynamic>> value = await FirebaseFirestore.instance
+    final QuerySnapshot<Map<String, dynamic>> value = await FirebaseFirestore
+        .instance
         .collection("User cart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("cart Item")
         .get();
-if (value.docs.isNotEmpty) {
-    final itemSubtotal = value.docs.map((e) => e.data()["subTotal"]).toList();
+    if (value.docs.isNotEmpty) {
+      final itemSubtotal = value.docs.map((e) => e.data()["subTotal"]).toList();
 
-    for (int element in itemSubtotal) {
-      allSubtotal.value += element;
+      for (int element in itemSubtotal) {
+        allSubtotal.value += element;
+      }
     }
-   
   }
-}
-
-
 }

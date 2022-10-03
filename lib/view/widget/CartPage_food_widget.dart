@@ -1,8 +1,10 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/model/all_product_model.dart';
 
+// ignore: must_be_immutable
 class CartPageFoodDetails extends StatelessWidget {
   AllProductModel allProductModel;
   double height;

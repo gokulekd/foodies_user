@@ -1,29 +1,37 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/images.dart';
 import 'package:foodies_user/constants/style.dart';
 import 'package:foodies_user/model/order_tracking_model.dart';
+import 'package:foodies_user/view/pages/user%20profile%20module/widgets/commen_detailed_view_order.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class UserProfileListTileWidgetCommen extends StatelessWidget {
   UserProfileListTileWidgetCommen({
     Key? key,
     required this.widthMedia,
     required this.heightMedia,
     required this.data,
+    required this.index,
   }) : super(key: key);
 
   final double widthMedia;
   final double heightMedia;
   final OderTrackingDetails data;
+  int index;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => CommenDetailedViewPageOrders(index: index, data: data));
+        log(index.toString());
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -50,7 +58,7 @@ class UserProfileListTileWidgetCommen extends StatelessWidget {
                         style: googleNormalFont,
                       ),
                     ),
-                    orderStatusPending(),
+                   
                   ],
                 ),
               ),
@@ -86,94 +94,4 @@ class UserProfileListTileWidgetCommen extends StatelessWidget {
       ),
     );
   }
-}
-
-
-Padding orderStatusPreparing() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 13, right: 2),
-    child: Container(
-      padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(
-          borderRadius: circle10, color: Color.fromARGB(255, 158, 175, 76)),
-      height: 20,
-      width: 100,
-      child: const Text(
-        "Preparing",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: kwhite),
-      ),
-    ),
-  );
-}
-
-Padding orderStatusPending() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 13, right: 2),
-    child: Container(
-      padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(
-          borderRadius: circle10, color: Color.fromARGB(255, 175, 114, 76)),
-      height: 20,
-      width: 100,
-      child: const Text(
-        "Pending",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: kwhite),
-      ),
-    ),
-  );
-}
-
-Padding orderStatusConfirmed() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 13, right: 2),
-    child: Container(
-      padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(
-          borderRadius: circle10, color: Color.fromARGB(255, 71, 151, 151)),
-      height: 20,
-      width: 100,
-      child: const Text(
-        "Confimed",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: kwhite),
-      ),
-    ),
-  );
-}
-
-Padding orderStatusDeliverd() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 13, right: 2),
-    child: Container(
-      padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(borderRadius: circle10, color: Colors.green),
-      height: 20,
-      width: 100,
-      child: const Text(
-        "Delived",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: kwhite),
-      ),
-    ),
-  );
-}
-
-Padding orderStatusCancelled() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 13, right: 2),
-    child: Container(
-      padding: const EdgeInsets.only(top: 2),
-      decoration: BoxDecoration(
-          borderRadius: circle10, color: Color.fromARGB(255, 168, 65, 59)),
-      height: 20,
-      width: 100,
-      child: const Text(
-        "Cancelled",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: kwhite),
-      ),
-    ),
-  );
 }

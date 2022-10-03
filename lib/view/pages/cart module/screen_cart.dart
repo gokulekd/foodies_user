@@ -17,6 +17,7 @@ import 'package:foodies_user/view/pages/cart%20module/CheckOutPage.dart';
 import 'package:foodies_user/view/pages/cart%20module/add_adress_page.dart';
 import 'package:foodies_user/view/pages/cart%20module/update_adress_page.dart';
 import 'package:foodies_user/view/pages/cart%20module/widgets/products_in_cart_widget.dart';
+import 'package:foodies_user/view/widget/white_app_bar_commen.dart';
 import 'package:get/get.dart';
 import '../../widget/deliveryAdressViewWidget.dart';
 
@@ -30,15 +31,8 @@ class ScreenCart extends StatelessWidget {
     final controller = Get.put(CartController());
 
     return Scaffold(
-      backgroundColor: KbargoundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Cart",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-      ),
+      backgroundColor: kbargoundColor,
+     appBar: whiteCustomAppBar("Cart"),
       body: SafeArea(
         child: ListView(
           children: [
@@ -95,90 +89,8 @@ class ScreenCart extends StatelessWidget {
                 ),
               ),
             ),
-            StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("selected Delivery Adress")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .snapshots(),
-              builder: (context,
-                  AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                      snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data?.data() == null) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: heightMedia * 0.2,
-                        width: widthMedia * 0.95,
-                        decoration: BoxDecoration(
-                            borderRadius: circle30,
-                            color: kwhite,
-                            border: Border.all(color: Colors.grey)),
-                        child: Column(
-                          children: [
-                            sizeH20,
-                            const Text(
-                              "You are in a new location",
-                              style: TextStyle(
-                                  fontSize: 19, fontWeight: FontWeight.bold),
-                            ),
-                            const Divider(
-                              thickness: 1,
-                            ),
-                            sizeH10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: const Color.fromARGB(
-                                            255, 68, 139, 118),
-                                        fixedSize: const Size(150, 40),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(50))),
-                                    onPressed: () async {
-                                      adressSelectorWidget();
-                                    },
-                                    child: const Text("Select Adress")),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: const Color.fromARGB(
-                                          255, 68, 139, 118),
-                                      fixedSize: const Size(150, 40),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50))),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => AddAdressPage(),
-                                        ));
-                                  },
-                                  child: const Text("Add Adress"),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  } else {
-                    return deliveryAdressViewWidget(
-                        heightMedia,
-                        widthMedia,
-                        context,
-                        SelectedDeliveryAdress.fromJson(snapshot.data!.data()));
-                  }
-                } else {
-                  return const SizedBox(
-                    height: 50,
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-              },
-            ),
+            SelectedDeliveryAdressWidget(
+                heightMedia: heightMedia, widthMedia: widthMedia),
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("User cart")
@@ -220,6 +132,102 @@ class ScreenCart extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SelectedDeliveryAdressWidget extends StatelessWidget {
+  const SelectedDeliveryAdressWidget({
+    Key? key,
+    required this.heightMedia,
+    required this.widthMedia,
+  }) : super(key: key);
+
+  final double heightMedia;
+  final double widthMedia;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection("selected Delivery Adress")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
+      builder: (context,
+          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data?.data() == null) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: heightMedia * 0.2,
+                width: widthMedia * 0.95,
+                decoration: BoxDecoration(
+                    borderRadius: circle30,
+                    color: kwhite,
+                    border: Border.all(color: Colors.grey)),
+                child: Column(
+                  children: [
+                    sizeH20,
+                    const Text(
+                      "You are in a new location",
+                      style:
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                    ),
+                    sizeH10,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary:
+                                    const Color.fromARGB(255, 68, 139, 118),
+                                fixedSize: const Size(150, 40),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                            onPressed: () async {
+                              adressSelectorWidget();
+                            },
+                            child: const Text("Select Adress")),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: const Color.fromARGB(255, 68, 139, 118),
+                              fixedSize: const Size(150, 40),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddAdressPage(),
+                                ));
+                          },
+                          child: const Text("Add Adress"),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return deliveryAdressViewWidget(
+                visibleCheck: true,
+                heightMedia,
+                widthMedia,
+                context,
+                SelectedDeliveryAdress.fromJson(snapshot.data!.data()));
+          }
+        } else {
+          return const SizedBox(
+            height: 50,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+      },
     );
   }
 }

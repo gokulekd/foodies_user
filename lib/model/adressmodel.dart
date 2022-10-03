@@ -1,5 +1,4 @@
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 AdressModel adressModelFromJson(String str) =>

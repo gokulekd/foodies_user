@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
@@ -7,7 +8,7 @@ import 'package:foodies_user/model/Selected_delivery_adress.dart';
 import 'package:foodies_user/view/pages/cart%20module/screen_cart.dart';
 
 Padding deliveryAdressViewWidget(
-    double heightMedia, double widthMedia, BuildContext context ,SelectedDeliveryAdress data) {
+    double heightMedia, double widthMedia, BuildContext context ,SelectedDeliveryAdress data,{required bool visibleCheck}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -44,16 +45,19 @@ Padding deliveryAdressViewWidget(
             subtitle:  Text(
               "${data.houseName!.toString()} ${data.areaNo!.toString()} ${data.landMark!.toString()}"
                ),
-            trailing: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: loginColor,
-                  fixedSize: const Size(90, 40),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50))),
-              onPressed: () {
-              adressSelectorWidget();
-              },
-              child: const Text("change"),
+            trailing: Visibility(
+              visible: visibleCheck,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: loginColor,
+                    fixedSize: const Size(90, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50))),
+                onPressed: () {
+                adressSelectorWidget();
+                },
+                child: const Text("change"),
+              ),
             ),
           ),
         ],

@@ -126,73 +126,26 @@ class ProductDetailedViewPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Stack(
-                              children: [
-                                SizedBox(
-                                  height: heightMedia * 0.1,
-                                  width: double.infinity,
-                                ),
-                                const Positioned(
-                                  left: 100,
-                                  right: 100,
-                                  child: SizedBox(
-                                    height: 60,
-                                    width: 60,
-                                    child: Center(
-                                      child: Text(
-                                        "0",
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: signupColor),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              "₹ 7858",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: kred),
-                            ),
                             sizeH50,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    final model = AddtoCart(
-                                        id: value.id!,
-                                        name: value.productName!,
-                                        price: value.price!,
-                                        image: value.image.toString(),quantity: 1,);
-                                    controller.addProductToCart(model);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      primary:
-                                          const Color.fromARGB(255, 48, 96, 45),
-                                      fixedSize: const Size(150, 50),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50))),
-                                  child: const Text('Add to Cart'),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                      primary: const Color.fromARGB(
-                                          255, 135, 59, 23),
-                                      fixedSize: const Size(150, 50),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50))),
-                                  child: const Text('Buy Now'),
-                                ),
-                              ],
-                            )
+                            ElevatedButton(
+                              onPressed: () {
+                                final model = AddtoCart(
+                                  id: value.id!,
+                                  name: value.productName!,
+                                  price: value.price!,
+                                  image: value.image.toString(),
+                                  quantity: 1,
+                                );
+                                controller.addProductToCart(model);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary:
+                                      const Color.fromARGB(255, 48, 96, 45),
+                                  fixedSize: const Size(200, 50),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50))),
+                              child: const Text('Add to Cart'),
+                            ),
                           ],
                         );
                       }

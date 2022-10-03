@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      builder: (context, Widget) => ResponsiveWrapper.builder(
-          ClampingScrollWrapper.builder(context, Widget!),
+      builder: (context, widget) => ResponsiveWrapper.builder(
+          ClampingScrollWrapper.builder(context, widget!),
           breakpoints: const [
             ResponsiveBreakpoint.resize(350, name: MOBILE),
             ResponsiveBreakpoint.autoScale(600, name: TABLET),

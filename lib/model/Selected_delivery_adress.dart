@@ -1,5 +1,4 @@
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SelectedDeliveryAdress selectedDeliveryAdressFromJson(String str) => SelectedDeliveryAdress.fromJson(json.decode(str));
@@ -8,6 +7,7 @@ String selectedDeliveryAdressToJson(SelectedDeliveryAdress data) => json.encode(
 
 class SelectedDeliveryAdress {
     SelectedDeliveryAdress({
+
         required this.documentId,
         required this.areaNo,
         required this.houseName,
@@ -22,6 +22,7 @@ class SelectedDeliveryAdress {
     String? landMark;
     String? mobile;
     String? name;
+    
 
     factory SelectedDeliveryAdress.fromJson(Map<String, dynamic>? json) => SelectedDeliveryAdress(
         documentId: json?["Document Id"]??"",

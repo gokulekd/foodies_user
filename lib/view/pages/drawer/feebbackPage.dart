@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:foodies_user/constants/colors.dart';
 
 class FeedBackToMail extends StatefulWidget {
   const FeedBackToMail({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _FeedBackToMailState extends State<FeedBackToMail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plugin example app'),
+        title: const Text('FeedBack'),backgroundColor: kgreen,
         actions: <Widget>[
           IconButton(
             onPressed: send,

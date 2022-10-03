@@ -6,7 +6,6 @@ import 'package:foodies_user/constants/border_radious.dart';
 import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/sized_box.dart';
 import 'package:foodies_user/model/adressmodel.dart';
-import 'package:foodies_user/view/pages/cart%20module/update_adress_page.dart';
 import 'package:foodies_user/view/pages/user%20profile%20module/adress/all_adress_list_widget.dart';
 import 'package:foodies_user/view/widget/white_app_bar_commen.dart';
 import 'package:get/get.dart';
@@ -47,41 +46,8 @@ class UserProfileAdressViewPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ListTile(
-                          leading: adressTypeHome(),
-                          title: Text(
-                            adress.name.toString(),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(adress.houseName),
-                              Text("${adress.areaNo},${adress.landMark}"),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton.icon(
-                              icon: const Icon(Icons.edit),
-                              style: ElevatedButton.styleFrom(
-                                  primary: loginColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50))),
-                              onPressed: () {
-                                Get.to(() => UpdateAdressPage());
-                              },
-                              label: const Text("Edit"),
-                            ),
-                            ElevatedButton.icon(
-                              icon: const Icon(Icons.delete),
-                              style: ElevatedButton.styleFrom(
-                                  primary: kred,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50))),
-                              onPressed: () {
-                                // log(snapshot.data!.docs[index].id.toString());
-
+                          trailing: IconButton(
+                              onPressed: () async {
                                 Get.defaultDialog(
                                     title: "Message",
                                     middleText:
@@ -102,7 +68,6 @@ class UserProfileAdressViewPage extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(50))),
                                         onPressed: () async {
-                                          String value;
                                           final deleteAdress = FirebaseFirestore
                                               .instance
                                               .collection("Adress")
@@ -196,10 +161,22 @@ class UserProfileAdressViewPage extends StatelessWidget {
                                       ),
                                     ]);
                               },
-                              label: const Text("delete"),
-                            ),
-                          ],
-                        )
+                              icon: const Icon(
+                                Icons.delete,
+                                color: kred,
+                              )),
+                          leading: adressTypeHome(),
+                          title: Text(
+                            adress.name.toString(),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(adress.houseName),
+                              Text("${adress.areaNo},${adress.landMark}"),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:foodies_user/constants/colors.dart';
-import 'package:foodies_user/constants/icons.dart';
+
 
 // ignore: must_be_immutable
 class CategoryTitle extends StatelessWidget {
-  String title ;
+  String title;
   IconData iconName;
 
-   CategoryTitle({
+  CategoryTitle({
     Key? key,
     required this.title,
     required this.iconName,
@@ -21,19 +20,20 @@ class CategoryTitle extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Icon(
           iconName,
-          color:kred,
+          color: kred,
         ),
       ),
-      title:  Text(
+      title: Text(
         title,
-        style: const TextStyle(color: Color.fromARGB(255, 185, 87, 80),fontSize: 17),
+        style: const TextStyle(
+            color: Color.fromARGB(255, 185, 87, 80), fontSize: 17),
       ),
-     
-      trailing: InkWell(
-        onTap: () {
-          
-        },
-        child: const Text("See More>>",style: TextStyle(color:loginColor,),))
+      trailing: const Text(
+        "See More>>",
+        style: TextStyle(
+          color: loginColor,
+        ),
+      ),
     );
   }
 }

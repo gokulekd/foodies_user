@@ -539,6 +539,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  progress_stepper:
+    dependency: "direct main"
+    description:
+      name: progress_stepper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   quiver:
     dependency: transitive
     description:
@@ -635,6 +642,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  steps_widget:
+    dependency: "direct main"
+    description:
+      name: steps_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   stream_channel:
     dependency: transitive
     description:

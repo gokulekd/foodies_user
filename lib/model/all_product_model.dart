@@ -12,9 +12,8 @@ class AllProductModel {
   bool? available;
 
   AllProductModel(
-      {
-        this.id,
-        this.image,
+      {this.id,
+      this.image,
       this.productName,
       this.price,
       this.quantity,
@@ -23,8 +22,8 @@ class AllProductModel {
       this.documentID,
       this.available});
 
-  Map<String, dynamic> ProductToJson() => {
-    "id":id,
+  Map<String, dynamic> productToJson() => {
+        "id": id,
         "ProductImage": image,
         "productName": productName,
         "Price": price,
@@ -39,7 +38,7 @@ class AllProductModel {
     // var snapshotData = snapshot as  Map<String, dynamic>;
 
     return AllProductModel(
-      id: snapshot ["id"],
+        id: snapshot["id"],
         image: snapshot["ProductImage"],
         productName: snapshot["productName"],
         price: snapshot["Price"],

@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'dart:io';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,9 +34,9 @@ class OrderTrackingController extends GetxController {
 
     final OderTrackingDetails oderTrackingDetailsData = OderTrackingDetails(
         firebaseDocumentId: "",
-        orderConfirmed: true,
-        orderPreparing: true,
-        orderDelivered: true,
+        orderConfirmed: false,
+        orderPreparing: false,
+        orderDelivered: false,
         orderRejected: false,
         grandTotalAmount: grandTotal,
         paymentTransactionId: paymentTransactionID,

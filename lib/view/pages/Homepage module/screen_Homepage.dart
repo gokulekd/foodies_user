@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,12 +6,12 @@ import 'package:foodies_user/constants/colors.dart';
 import 'package:foodies_user/constants/icons.dart';
 import 'package:foodies_user/model/all_product_model.dart';
 import 'package:foodies_user/view/pages/drawer/navigation_drawer.dart';
+import 'package:foodies_user/view/pages/food%20categorty%20module/DetailedCategoriesPage.dart';
 import 'package:foodies_user/view/widget/BurgerOfferWidget.dart';
 import 'package:foodies_user/view/widget/CommonBurgerShowWidget.dart';
-import 'package:foodies_user/view/widget/Current_Location_Homepage.dart';
 import 'package:foodies_user/view/widget/CustomAppBar.dart';
 import 'package:foodies_user/view/widget/categories_title.dart';
-import 'package:foodies_user/view/widget/searchBar.dart';
+import 'package:get/get.dart';
 
 class ScreenHomePage extends StatelessWidget {
   const ScreenHomePage({Key? key}) : super(key: key);
@@ -21,19 +20,14 @@ class ScreenHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavigationDrawer(),
-      backgroundColor: KbargoundColor,
+      backgroundColor: kbargoundColor,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: HomepageCustomAppBar(),
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(
-            child: CurrentLocation(),
-          ),
-          const SliverToBoxAdapter(
-            child: SearchBar(),
-          ),
+      
           SliverToBoxAdapter(
               child: CategoryTitle(title: "offers", iconName: iconoffers)),
           const SliverToBoxAdapter(child: BurgerOfferWidget()),
@@ -65,10 +59,16 @@ class ScreenHomePage extends StatelessWidget {
                             if (singleSnapshotofCategory.hasData) {
                               return Column(
                                 children: [
-                                  CategoryTitle(
-                                    iconName: Icons.food_bank,
-                                    title: allCategorySnapshot
-                                        .data!.docs[mainIndex]["category Name"],
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => DetailedCategoriesPage(
+                                          categoryindex: mainIndex));
+                                    },
+                                    child: CategoryTitle(
+                                      iconName: Icons.food_bank,
+                                      title: allCategorySnapshot.data!
+                                          .docs[mainIndex]["category Name"],
+                                    ),
                                   ),
                                   GridView.builder(
                                     shrinkWrap: true,
@@ -78,11 +78,13 @@ class ScreenHomePage extends StatelessWidget {
                                         const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount: 2,
                                             childAspectRatio: 5 / 6.5,
-                                            crossAxisSpacing: 5,
-                                            mainAxisSpacing: 5),
+                                            crossAxisSpacing: 1,
+                                            mainAxisSpacing: 1),
                                     itemCount: 2,
                                     itemBuilder: (BuildContext ctx, index) {
                                       return CommonBurgerShowWidget(
+                                        productIndex: index,
+                                        categoryIndex: mainIndex,
                                         allProductModel: AllProductModel()
                                             .productFromJson(
                                                 singleSnapshotofCategory
@@ -112,7 +114,5 @@ class ScreenHomePage extends StatelessWidget {
         ],
       ),
     );
-
-
   }
 }

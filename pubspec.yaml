@@ -53,6 +53,10 @@ dependencies:
   package_info_plus: ^1.4.3+1
   share_plus: ^4.4.0
   intl: ^0.17.0
+  progress_stepper: ^1.0.0
+  steps_widget: ^0.0.3
+
+
 
 dev_dependencies:
   flutter_test:

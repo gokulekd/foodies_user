@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_user/constants/colors.dart';
 
 class PrivacyAndPolicy extends StatelessWidget {
   const PrivacyAndPolicy({Key? key}) : super(key: key);
@@ -6,9 +7,9 @@ class PrivacyAndPolicy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 22, 4, 51),
+      backgroundColor: Color.fromARGB(255, 108, 136, 105),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 77, 34, 146),
+        backgroundColor: kgreen,
         title: const Text("Privacy And Policy"),
       ),
       body: ListView(
